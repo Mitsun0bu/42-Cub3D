@@ -60,7 +60,7 @@ void	render_walls_and_tiles(t_data *data, int x, int y)
 	}
 	else
 	{
-		cell.color = GREY;
+		cell.color = WHITE;
 		render_rect(data, &data->mini_map, cell);
 	}
 }

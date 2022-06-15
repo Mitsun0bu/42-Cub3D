@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/15 13:01:44 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/15 15:17:39 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ enum e_color {
 	RED = 0xFF0000,
 	PINK = 0xFF99FF,
 	YELLOW = 0xFFFF66
+};
+
+enum e_orientation {
+	NE,
+	NW,
+	SE,
+	SW
 };
 
 /* ************************************************************************** */
@@ -223,6 +230,14 @@ typedef struct s_ray
 	int		wall_strip_wdth;
 	double	angle;
 	t_line	line;
+	double	x_intercept;
+	double	y_intercept;
+	double	x_step;
+	double	y_step;
+	double	wall_hit_x;
+	double	wall_hit_y;
+	double	len;
+	int		orientation;
 }	t_ray;
 
 typedef struct s_data

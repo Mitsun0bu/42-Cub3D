@@ -27,7 +27,7 @@
 
 /*	render_manager/ray_casting.c											*/
 void	ray_casting(t_data *data, t_player *player, t_ray *ray);
-void	throw_ray(t_data *data, int i, double angle);
+double	normalize_angle(double angle);
 
 /*	render_manager/render_env.c										*/
 void	render_env(t_data *data, int i_ray, double ray_angle, double ray_step);
