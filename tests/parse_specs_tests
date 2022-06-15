@@ -1,0 +1,24 @@
+// printf("========== START OF GET_config_LINES TEST ==========");
+//	printf("no_text_path = %s", config->no_texture_path);
+//	printf("so_text_path = %s", config->so_texture_path);
+//	printf("we_text_path = %s", config->we_texture_path);
+//	printf("ea_text_path = %s", config->ea_texture_path);
+//	printf("floor_rgb_str = %s", config->floor_rgb_str);
+//	printf("ceiling_rgb_str = %s", config->ceiling_rgb_str);
+// printf("========== END OF GET_config_LINES TEST ==========");
+
+// printf("========== START OF GET_MAP TEST ==========\n");
+//	int	i = -1;
+
+//	while(config->map[++i])
+//		printf("%s\n", config->map[i]);
+// printf("=========== END OF GET_MAP TEST ===========\n");
+
+// printf("========== START OF parse_config_line TEST ==========");
+//	printf("no_text_path = %s", config->no_texture_path);
+//	printf("so_text_path = %s", config->so_texture_path);
+//	printf("we_text_path = %s", config->we_texture_path);
+//	printf("ea_text_path = %s", config->ea_texture_path);
+//	printf("floor_rgb_str = %s", config->floor_rgb_str);
+//	printf("ceiling_rgb_str = %s", config->ceiling_rgb_str);
+// printf("========== END OF parse_config_line TEST ==========");
