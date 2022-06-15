@@ -78,12 +78,12 @@ void	render_player(t_data *data)
 	render_rect(data, &data->mini_map, player);
 
 	//Draw player direction vector
-	t_line	line;
+	// t_line	line;
 
-	line.x_start = data->player.x;
-	line.y_start = data->player.y;
-	line.x_end = data->player.x + cos(data->player.rotation_angle) * 20;
-	line.y_end = data->player.y + sin(data->player.rotation_angle) * 20;
-	line.color = BLACK;
-	render_line(data, &data->mini_map, line);
+	// line.x_start = data->player.x;
+	// line.y_start = data->player.y;
+	// line.x_end = data->player.x + cos(data->player.rotation_angle) * 20;
+	// line.y_end = data->player.y + sin(data->player.rotation_angle) * 20;
+	// line.color = BLACK;
+	// render_line(data, &data->mini_map, line);
 }

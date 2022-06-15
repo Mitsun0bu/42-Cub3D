@@ -29,7 +29,7 @@ void	get_config_lines(t_config *config, int fd)
 	char			*line;
 	char			*trimmed_line;
 
-	while (check_config_finding(config) == not_found)
+	while (check_config_finding(config) == NOT_FOUND)
 	{
 		line = ft_get_next_line(fd);
 		if (!line)
@@ -67,9 +67,9 @@ static int	check_config_finding(t_config *config)
 	if (config->ceiling_rgb_str)
 		i_color ++;
 	if (i_texture_path == 4 && i_color == 2)
-		return (found);
+		return (FOUND);
 	else
-		return (not_found);
+		return (NOT_FOUND);
 }
 
 static void	copy_config_line(t_config *config, char *line)
