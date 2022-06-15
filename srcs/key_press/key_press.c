@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/14 10:54:12 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/15 13:01:44 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,82 @@ int	key_press(int key, t_data *data)
 void	move_up(t_data *data)
 {
 	data->player.walk_direction = 1;
+
+	// Determine the quantity of movement of the player in a given direction
+	double	move_step;
+	move_step = data->player.walk_direction * data->player.move_speed;
+
+	// Update player position, only if no wall is encountered
+	update_player_position(data, move_step);
 }
 
 void	move_down(t_data *data)
 {
 	data->player.walk_direction = -1;
+
+	// Determine the quantity of movement of the player in a given direction
+	double	move_step;
+	move_step = data->player.walk_direction * data->player.move_speed;
+
+	// Update player position, only if no wall is encountered
+	update_player_position(data, move_step);
 }
 
 void	move_left(t_data *data)
 {
-	data->player.walk_direction = -1;
+	(void)data;
+	// data->player.turn_direction = -1;
+	// data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
 }
 
 void	move_right(t_data *data)
 {
-	data->player.turn_direction = 1;
+	(void)data;
+	// data->player.turn_direction = 1;
+	// data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
 }
 
 void	turn_left(t_data *data)
 {
-	(void)data;
+	data->player.turn_direction = -1;
+	data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
 }
 
 void	turn_right(t_data *data)
 {
-	(void)data;
+	data->player.turn_direction = 1;
+	data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
+}
+
+void	update_player_position(t_data *data, double move_step)
+{
+	double	new_player_x;
+	double	new_player_y;
+
+	new_player_x = data->player.x;
+	new_player_y = data->player.y;
+	new_player_x += cos(data->player.rotation_angle) * move_step;
+	new_player_y += sin(data->player.rotation_angle) * move_step;
+	// If no wall only, update player position
+	if (check_collision(data, new_player_x, new_player_y) == FAILED)
+	{
+		data->player.x = new_player_x;
+		data->player.y = new_player_y;
+	}
+}
+
+int		check_collision(t_data *data, double x, double y)
+{
+	int	map_x;
+	int	map_y;
+
+	if (x < 0 || x > data->win.wdth || y < 0 || x > data->win.hgt)
+		return (SUCCESS);
+	map_x = floor(x / data->map.cell_size);
+	map_y = floor(y / data->map.cell_size);
+	if (data->map.tab[map_y][map_x] == '1')
+		return (SUCCESS);
+	return (FAILED);
 }
 
 void	change_player_orientation(t_data *data, t_player *player)

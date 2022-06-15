@@ -26,14 +26,15 @@ void	init_player(t_data *data, t_player *player, t_config *config)
 {
 	(void)data;
 	(void)config;
-	player->x = (player->x * data->map.tile_size) + (data->map.tile_size / 2);
-	player->y = player->y * data->map.tile_size + (data->map.tile_size / 2);
+	player->x = (player->x * data->map.cell_size) + (data->map.cell_size / 2);
+	player->y = player->y * data->map.cell_size + (data->map.cell_size / 2);
 	player->radius = 3;
 	player->turn_direction = 0; // -1 if left, +1 if right
 	player->walk_direction = 0; // -1 if back, +1 if front
 	player->rotation_angle = M_PI / 2;
-	player->move_speed = 2.0;
-	player->rotation_speed = 2 * (M_PI / 180); // 2 deg converted into rad
+	player->move_speed = 5.0;
+	player->rotation_speed = 5 * (M_PI / 180); // 2 deg converted into rad
+	player->fov = 60 * (M_PI / 180); // 60deg converted into rad
 }
 
 // static void	init_player_dir(t_player *player, t_config *config)

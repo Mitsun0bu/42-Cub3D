@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/14 19:05:30 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/15 13:01:44 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ enum e_key {
 enum e_color {
 	BLACK = 0x000000,
 	WHITE = 0xFFFFFF,
+	GREY = 0xE0E0E0,
+	RED = 0xFF0000,
 	PINK = 0xFF99FF,
 	YELLOW = 0xFFFF66
 };
@@ -120,7 +122,7 @@ typedef struct map
 	char	**tab;
 	int		hgt;
 	int		wdth;
-	int		tile_size;
+	int		cell_size;
 } t_map;
 
 typedef struct s_win
@@ -172,10 +174,10 @@ typedef struct s_rect
 
 typedef struct s_line
 {
-	double	start_x;
-	double	start_y;
-	double	end_x;
-	double	end_y;
+	double	x_start;
+	double	y_start;
+	double	x_end;
+	double	y_end;
 	int	color;
 }	t_line;
 
@@ -212,11 +214,15 @@ typedef struct s_player
 	double	rotation_angle;
 	double	move_speed;
 	double	rotation_speed;
+	double	fov;
 }	t_player;
 
 typedef struct s_ray
 {
-	int x;
+	int		n_rays;
+	int		wall_strip_wdth;
+	double	angle;
+	t_line	line;
 }	t_ray;
 
 typedef struct s_data
@@ -224,19 +230,16 @@ typedef struct s_data
 	t_config	config;
 	t_map		map;
 	t_win		win;
-	t_vector_double	mouse;
-	t_img		mini_map;
 	t_player	player;
-	int			n_rays;
-	t_ray		*ray_tab;
-	double		time;
-	double		old_time;
+	t_ray		ray;
+
+	t_img		mini_map;
 	t_img		walls;
+
 	t_texture	east_texture;
 	t_texture	north_texture;
 	t_texture	south_texture;
 	t_texture	west_texture;
-	t_coord		camera;
 }	t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:47:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/14 18:37:40 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/15 11:38:06 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ int	render_line(t_data *data, t_img *render, t_line line)
 	int		n_pixels;
 	double	x;
 	double	y;
-	
+
 	if (data->win.edge == NULL)
 		return (1);
-	dx = line.end_x - line.start_x;
-	dy = line.end_y - line.start_y;
+	dx = line.x_end - line.x_start;
+	dy = line.y_end - line.y_start;
 	n_pixels = sqrt((dx * dx) + (dy * dy));
 	dx /= n_pixels;
 	dy /= n_pixels;
 
-	x = line.start_x;
-	y = line.start_y;
+	x = line.x_start;
+	y = line.y_start;
 	while (n_pixels)
 	{
     	pixel_put(render, x, y, line.color);
@@ -67,7 +67,7 @@ int render_circle(t_data *data, t_img *render, t_circle circle)
 	double	angle;
 	double	x;
 	double	y;
-	
+
 	if (data->win.edge == NULL)
 		return (1);
 	i = 0;

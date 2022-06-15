@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 17:19:42 by llethuil          #+#    #+#              #
-#    Updated: 2022/06/07 15:54:59 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/06/15 11:42:16 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ INCS_LST	:=	config_parser.h								\
 				header.h									\
 				init_images.h								\
 				init_player.h								\
+				init_ray.h									\
 				key_press.h									\
 				main.h										\
 				render_manager.h							\
@@ -70,6 +71,7 @@ SRCS_LST	:=	config_parser/check_map.c					\
 				config_parser/replace_spaces_in_str.c		\
 				init_images/init_images.c					\
 				init_player/init_player.c					\
+				init_ray/init_ray.c							\
 				key_press/key_press.c						\
 				main/main.c									\
 				render_manager/ray_casting.c				\
@@ -81,6 +83,7 @@ SRCS_LST	:=	config_parser/check_map.c					\
 SUBDIRS_LST	:=	config_parser								\
 				init_images									\
 				init_player									\
+				init_ray									\
 				key_press									\
 				main										\
 				render_manager								\
