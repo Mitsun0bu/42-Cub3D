@@ -33,7 +33,7 @@ void	init_player(t_data *data, t_player *player, t_config *config)
 	player->walk_direction = 0; // -1 if back, +1 if front
 	player->rotation_angle = M_PI / 2;
 	player->move_speed = 5.0;
-	player->rotation_speed = 5 * (M_PI / 180); // 2 deg converted into rad
+	player->rotation_speed = 2 * (M_PI / 180); // 2 deg converted into rad
 	player->fov = 60 * (M_PI / 180); // 60deg converted into rad
 }
 

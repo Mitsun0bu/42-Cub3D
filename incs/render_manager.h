@@ -30,10 +30,15 @@ void	ray_casting(t_data *data);
 double	normalize_angle(double angle);
 void	dda_algorithm(t_data *data);
 void	get_ray_orientation(t_player *player, t_ray *ray);
-int		find_horizontal_wall_hit(t_data *data);
-int		find_vertical_wall_hit(t_data *data);
+void		find_horizontal_wall_hit(t_data *data);
+void	find_vertical_wall_hit(t_data *data);
 void	get_grid_intercept(t_map *map, t_player *player, t_ray *ray, int grid);
 void	get_grid_step(t_map *map, t_ray *ray, int grid);
+void		find_wall_hit(t_data *data, int grid);
+void	get_next_grid_touch(t_ray *ray, int grid);
+void		horizontal_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
+void		vertical_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
+
 
 /*	render_manager/render_env.c										*/
 void	render_env(t_data *data, int i_ray, double ray_angle, double ray_step);

@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:23:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 10:01:47 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 13:45:45 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ void	ray_casting(t_data *data)
 	int	column_i;
 
 	data->ray.angle = data->player.rotation_angle - (data->player.fov / 2);
+	data->ray.angle = normalize_angle(data->ray.angle);
 	column_i = -1;
-	while(++column_i < 1)
+	while(++column_i < data->ray.n_rays)
 	{
 		data->ray.line.x_start = data->player.x;
 		data->ray.line.y_start = data->player.y;
-		data->ray.line.x_end = data->player.x + cos(data->ray.angle) * 30;
-		data->ray.line.y_end = data->player.y + sin(data->ray.angle) * 30;
+		data->ray.line.x_end = data->player.x + cos(data->ray.angle) * 50;
+		data->ray.line.y_end = data->player.y + sin(data->ray.angle) * 50;
 		// data->ray.line.color = RED;
 		// render_line(data, &data->mini_map, data->ray.line);
 
@@ -34,7 +35,10 @@ void	ray_casting(t_data *data)
 		////////////////////////////////////////////////////////////////
 		/// END DDA
 		///////////////////////////////////////////////////////////////
-
+		data->ray.line.x_end = data->ray.wall_hit_x;
+		data->ray.line.y_end = data->ray.wall_hit_y;
+		data->ray.line.color = RED;
+		render_line(data, &data->mini_map, data->ray.line);
 		data->ray.angle += data->player.fov / data->ray.n_rays;
 		data->ray.angle = normalize_angle(data->ray.angle);
 		// data->ray.angle = fabs(normalize_angle(data->ray.angle)); //Should we use abs value ?
@@ -53,26 +57,29 @@ double	normalize_angle(double angle)
 
 void	dda_algorithm(t_data *data)
 {
-	int	horizontal_wall_hit;
-	int	vertical_wall_hit;
-
-	horizontal_wall_hit = NOT_FOUND;
-	vertical_wall_hit = NOT_FOUND;
-
-	// Get ray orientation
 	get_ray_orientation(&data->player, &data->ray);
-
-	// Find horizontal wall_hit
-	if (find_horizontal_wall_hit(data) == SUCCESS)
-		horizontal_wall_hit = FOUND;
-
-	// Find horizontal wall_hit
-	if (find_vertical_wall_hit(data) == SUCCESS)
-		horizontal_wall_hit = FOUND;
+	find_horizontal_wall_hit(data);
+	find_vertical_wall_hit(data);
 
 	////////////////////////////////////////////////////////////////
-	/// CALCULATE HORIZONTAL AND VERTICAL DISTANCES
+	///			CALCULATE HORIZONTAL AND VERTICAL DISTANCES		 ///
 	////////////////////////////////////////////////////////////////
+	data->ray.horizontal_hit_distance = sqrt(pow((data->ray.horizontal_wall_hit_x) - (data->player.x), 2) + pow((data->ray.horizontal_wall_hit_y) - (data->player.y), 2));
+	data->ray.vertical_hit_distance = sqrt(pow((data->ray.vertical_wall_hit_x) - (data->player.x), 2) + pow((data->ray.vertical_wall_hit_y) - (data->player.y), 2));
+	if (data->ray.horizontal_hit_distance < data->ray.vertical_hit_distance)
+	{
+		data->ray.wall_hit_x = data->ray.horizontal_wall_hit_x;
+		data->ray.wall_hit_y = data->ray.horizontal_wall_hit_y;
+		data->ray.len = data->ray.horizontal_hit_distance;
+		data->ray.grid_hit = HORIZONTAL;
+	}
+	else
+	{
+		data->ray.wall_hit_x = data->ray.vertical_wall_hit_x;
+		data->ray.wall_hit_y = data->ray.vertical_wall_hit_y;
+		data->ray.len = data->ray.vertical_hit_distance;
+		data->ray.grid_hit = VERTICAL;
+	}
 }
 
 void	get_ray_orientation(t_player *player, t_ray *ray)
@@ -87,14 +94,14 @@ void	get_ray_orientation(t_player *player, t_ray *ray)
 		ray->orientation = SW;
 }
 
-int	find_horizontal_wall_hit(t_data *data)
+void	find_horizontal_wall_hit(t_data *data)
 {
 	get_grid_intercept(&data->map, &data->player, &data->ray, HORIZONTAL);
 	get_grid_step(&data->map, &data->ray, HORIZONTAL);
 	find_wall_hit(data, HORIZONTAL);
 }
 
-int	find_vertical_wall_hit(t_data *data)
+void	find_vertical_wall_hit(t_data *data)
 {
 	get_grid_intercept(&data->map, &data->player, &data->ray, VERTICAL);
 	get_grid_step(&data->map, &data->ray, VERTICAL);
@@ -132,9 +139,9 @@ void	get_grid_step(t_map *map, t_ray *ray, int grid)
 		if (ray->orientation == NE || ray->orientation == NW)
 			ray->y_step *= -1;
 		ray->x_step = map->cell_size / tan(ray->angle);
-		if (ray->x_step > 0 && (ray->orientation == NW || ray->orientation == SW))
+		if ((ray->orientation == NW || ray->orientation == SW) && ray->x_step > 0)
 			ray->x_step *= -1;
-		else if (ray->x_step < 0 && (ray->orientation == NE || ray->orientation == SE))
+		else if ((ray->orientation == NE || ray->orientation == SE) && ray->x_step < 0)
 			ray->x_step *= -1;
 		// CHECK IF THIS CAN BE SIMPLIFIED BECAUSE WE HAVE NE, NW, SE or SW orientation
 	}
@@ -145,9 +152,9 @@ void	get_grid_step(t_map *map, t_ray *ray, int grid)
 		if (ray->orientation == NW || ray->orientation == SW)
 			ray->x_step *= -1;
 		ray->y_step = map->cell_size * tan(ray->angle);
-		if (ray->y_step > 0 && (ray->orientation == NE || ray->orientation == NW))
+		if ((ray->orientation == NE || ray->orientation == NW) && ray->y_step > 0)
 			ray->y_step *= -1;
-		else if (ray->y_step < 0 && (ray->orientation == SE || ray->orientation == SW))
+		else if ((ray->orientation == SE || ray->orientation == SW) && ray->y_step < 0 )
 			ray->y_step *= -1;
 		// CHECK IF THIS CAN BE SIMPLIFIED BECAUSE WE HAVE NE, NW, SE or SW orientation
 	}
@@ -155,63 +162,11 @@ void	get_grid_step(t_map *map, t_ray *ray, int grid)
 
 void	find_wall_hit(t_data *data, int grid)
 {
-	double	horizontal_wall_x;
-	double	horizontal_wall_y;
-	double	vertical_wall_x;
-	double	vertical_wall_y;
-
 	get_next_grid_touch(&data->ray, grid);
-
 	if (grid == HORIZONTAL)
-		wall_hit_loop(data, limit);
+		horizontal_wall_hit_loop(data, &data->win, &data->player, &data->ray);
 	else if (grid == VERTICAL)
-		wall_hit_loop(data, grid);
-
-	// Increment x_step and y_step until we find a wall
-	while(data->ray.next_horizontal_touch_x >= 0 && data->ray.next_horizontal_touch_x <= data->win.wdth
-		&& data->ray.next_horizontal_touch_y >= 0 && data->ray.next_horizontal_touch_y <= data->win.hgt)
-	{
-		if (check_collision(data, data->ray.next_horizontal_touch_x, data->ray.next_horizontal_touch_y) == SUCCESS)
-		{
-			data->ray.horizontal_wall_hit_x = data->ray.next_horizontal_touch_x;
-			data->ray.horizontal_wall_hit_y = data->ray.next_horizontal_touch_y;
-			data->ray.line.x_start = data->player.x;
-			data->ray.line.y_start = data->player.y;
-			data->ray.line.x_end = data->ray.horizontal_wall_hit_x;
-			data->ray.line.y_end = data->ray.horizontal_wall_hit_y;
-			data->ray.line.color = RED;
-			render_line(data, &data->mini_map, data->ray.line);
-			return (FOUND);
-		}
-		else
-		{
-			data->ray.next_horizontal_touch_x += data->ray.x_step;
-			data->ray.next_horizontal_touch_y += data->ray.y_step;
-		}
-	}
-
-	// Increment x_step and y_step until we find a wall
-	while(data->ray.next_vertical_touch_x >= 0 && data->ray.next_vertical_touch_x <= data->win.wdth
-		&& data->ray.next_vertical_touch_y >= 0 && data->ray.next_vertical_touch_y <= data->win.hgt)
-	{
-		if (check_collision(data, data->ray.next_vertical_touch_x, data->ray.next_vertical_touch_y) == SUCCESS)
-		{
-			data->ray.vertical_wall_hit_x = data->ray.next_vertical_touch_x;
-			data->ray.vertical_wall_hit_y = data->ray.next_vertical_touch_y;
-			data->ray.line.x_start = data->player.x;
-			data->ray.line.y_start = data->player.y;
-			data->ray.line.x_end = data->ray.vertical_wall_hit_x;
-			data->ray.line.y_end = data->ray.vertical_wall_hit_y;
-			data->ray.line.color = RED;
-			render_line(data, &data->mini_map, data->ray.line);
-			return (FOUND);
-		}
-		else
-		{
-			data->ray.next_vertical_touch_x += data->ray.x_step;
-			data->ray.next_vertical_touch_y += data->ray.y_step;
-		}
-	}
+		vertical_wall_hit_loop(data, &data->win, &data->player, &data->ray);
 }
 
 void	get_next_grid_touch(t_ray *ray, int grid)
@@ -232,7 +187,44 @@ void	get_next_grid_touch(t_ray *ray, int grid)
 	}
 }
 
-void	wall_hit_loop()
+void	horizontal_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray)
 {
+	(void)player;
+	// Increment x_step and y_step until we find a wall
+	while(ray->next_horizontal_touch_x >= 0 && ray->next_horizontal_touch_x <= win->wdth
+		&& ray->next_horizontal_touch_y >= 0 && ray->next_horizontal_touch_y <= win->hgt)
+	{
+		if (check_collision(data,ray->next_horizontal_touch_x, ray->next_horizontal_touch_y) == SUCCESS)
+		{
+			ray->horizontal_wall_hit_x = ray->next_horizontal_touch_x;
+			ray->horizontal_wall_hit_y = ray->next_horizontal_touch_y;
+			break;
+		}
+		else
+		{
+			ray->next_horizontal_touch_x += ray->x_step;
+			ray->next_horizontal_touch_y += ray->y_step;
+		}
+	}
+}
 
+void	vertical_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray)
+{
+	(void)player;
+	// Increment x_step and y_step until we find a wall
+	while(ray->next_vertical_touch_x >= 0 && ray->next_vertical_touch_x <= win->wdth
+		&& ray->next_vertical_touch_y >= 0 && ray->next_vertical_touch_y <= win->hgt)
+	{
+		if (check_collision(data, ray->next_vertical_touch_x, ray->next_vertical_touch_y) == SUCCESS)
+		{
+			ray->vertical_wall_hit_x = ray->next_vertical_touch_x;
+			ray->vertical_wall_hit_y = ray->next_vertical_touch_y;
+			break;
+		}
+		else
+		{
+			ray->next_vertical_touch_x += ray->x_step;
+			ray->next_vertical_touch_y += ray->y_step;
+		}
+	}
 }
