@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 18:17:19 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 19:00:45 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ void	turn_left(t_data *data)
 {
 	data->player.turn_direction = -1;
 	data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
+	// data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
 }
 
 void	turn_right(t_data *data)
 {
 	data->player.turn_direction = 1;
 	data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
+	// data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
 }
 
 void	update_player_position(t_data *data, double move_step)
@@ -114,27 +116,7 @@ int		check_collision(t_data *data, double x, double y)
 		return (SUCCESS);
 	map_x = floor(x / data->map.cell_size);
 	map_y = floor(y / data->map.cell_size);
-	printf("map_x = %d\n", map_x);
-	printf("map_y = %d\n", map_y);
 	if (data->map.tab[map_y][map_x] == '1')
 		return (SUCCESS);
 	return (FAILED);
-}
-
-void	change_player_orientation(t_data *data, t_player *player)
-{
-	if ((data->player.rotation_angle >= ((7 * M_PI) / 4)
-			&& data->player.rotation_angle < (2 * M_PI))
-		|| (data->player.rotation_angle >= 0
-			&& data->player.rotation_angle < (M_PI / 4)))
-		player->orientation = 'E';
-	else if (data->player.rotation_angle >= (M_PI / 4)
-		&& data->player.rotation_angle < ((3 * M_PI) / 4))
-		player->orientation = 'S';
-	else if (data->player.rotation_angle >= ((3 * M_PI) / 4)
-		&& data->player.rotation_angle < ((5 * M_PI) / 4))
-		player->orientation = 'W';
-	else if (data->player.rotation_angle >= ((5 * M_PI) / 4)
-		&& data->player.rotation_angle < ((7 * M_PI) / 4))
-		player->orientation = 'N';
 }

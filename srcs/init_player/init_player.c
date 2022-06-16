@@ -19,8 +19,7 @@
 
 #include "main.h"
 
-// static void	init_player_dir(t_player *player, t_config *config);
-// static void	init_player_cam_plane(t_player *player);
+static void	init_player_dir(t_player *player, t_config *config);
 
 void	init_player(t_data *data, t_player *player, t_config *config)
 {
@@ -29,44 +28,32 @@ void	init_player(t_data *data, t_player *player, t_config *config)
 	player->x = (player->x * data->map.cell_size) + (data->map.cell_size / 2);
 	player->y = player->y * data->map.cell_size + (data->map.cell_size / 2);
 	player->radius = 3;
-	player->turn_direction = 0; // -1 if left, +1 if right
-	player->walk_direction = 0; // -1 if back, +1 if front
-	player->rotation_angle = M_PI / 2;
+	init_player_dir(player, config);
 	player->move_speed = 5.0;
 	player->rotation_speed = 2 * (M_PI / 180); // 2 deg converted into rad
 	player->fov = 60 * (M_PI / 180); // 60deg converted into rad
 }
 
-// static void	init_player_dir(t_player *player, t_config *config)
-// {
-// 	if (config->player_orientation == 'N')
-// 	{
-// 		player->dir.x = 0;
-// 		player->dir.y = 1;
-// 		player->dir.angle = (3 * M_PI)/2;
-// 	}
-// 	else if (config->player_orientation == 'S')
-// 	{
-// 		player->dir.x = 0;
-// 		player->dir.y = -1;
-// 		player->dir.angle = M_PI/2;
-// 	}
-// 	else if (config->player_orientation == 'W')
-// 	{
-// 		player->dir.x = 1;
-// 		player->dir.y = 0;
-// 		player->dir.angle = M_PI;
-// 	}
-// 	else if (config->player_orientation == 'E')
-// 	{
-// 		player->dir.x = -1;
-// 		player->dir.y = 0;
-// 		player->dir.angle = 2 * M_PI;
-// 	}
-// }
-
-// static void	init_player_cam_plane(t_player *player)
-// {
-// 	player->cam_plane.x = 0;
-// 	player->cam_plane.y = 0.66;
-// }
+static void	init_player_dir(t_player *player, t_config *config)
+{
+	if (config->player_orientation == 'N')
+	{
+		player->walk_direction = 1;
+		player->rotation_angle = (3 * M_PI)/2;
+	}
+	else if (config->player_orientation == 'S')
+	{
+		player->walk_direction = -1;
+		player->rotation_angle = M_PI/2;
+	}
+	else if (config->player_orientation == 'W')
+	{
+		player->turn_direction = -1;
+		player->rotation_angle = M_PI;
+	}
+	else if (config->player_orientation == 'E')
+	{
+		player->turn_direction = 1;
+		player->rotation_angle = 2 * M_PI;
+	}
+}

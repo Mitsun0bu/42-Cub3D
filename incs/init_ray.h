@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:39:48 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/15 11:40:31 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 19:04:02 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 /* ************************************************************************** */
 
 /*	init_ray/init_ray.c	*/
-void	init_ray(t_data *data, t_ray *ray);
+// void	init_ray(t_data *data, t_ray *ray);
+void	init_ray_tab(t_data *data);
+
 
 #endif

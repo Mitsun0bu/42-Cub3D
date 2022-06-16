@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 18:23:57 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 19:16:22 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,35 +217,39 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	int		n_rays;
-	int		wall_strip_wdth;
+	// int		n_rays;
+	// int		wall_strip_wdth;
 	double	angle;
-	double	dir_x_start;
-	double	dir_y_start;
-	double	dir_x_end;
-	double	dir_y_end;
-	double	x_intercept;
-	double	y_intercept;
-	double	x_step;
-	double	y_step;
-	double	horizontal_wall_hit_x;
-	double	horizontal_wall_hit_y;
-	double	next_horizontal_touch_x;
-	double	next_horizontal_touch_y;
-	double	vertical_wall_hit_x;
-	double	vertical_wall_hit_y;
-	double	next_vertical_touch_x;
-	double	next_vertical_touch_y;
-	double	x_to_check;
-	double	y_to_check;
-	double	horizontal_hit_distance;
-	double	vertical_hit_distance;
 	double	wall_hit_x;
 	double	wall_hit_y;
-	double	len;
+	int		is_facing_up;
+	int		is_facing_down;
+	int		is_facing_left;
+	int		is_facing_right;
 	int		grid_hit;
-	int		orientation;
-	t_line	line;
+	// double	dir_x_start;
+	// double	dir_y_start;
+	// double	dir_x_end;
+	// double	dir_y_end;
+	// double	x_intercept;
+	// double	y_intercept;
+	// double	x_step;
+	// double	y_step;
+	// double	horizontal_wall_hit_x;
+	// double	horizontal_wall_hit_y;
+	// double	next_horizontal_touch_x;
+	// double	next_horizontal_touch_y;
+	// double	vertical_wall_hit_x;
+	// double	vertical_wall_hit_y;
+	// double	next_vertical_touch_x;
+	// double	next_vertical_touch_y;
+	// double	x_to_check;
+	// double	y_to_check;
+	// double	horizontal_hit_distance;
+	// double	vertical_hit_distance;
+	// double	len;
+	// int		orientation;
+	// t_line	line;
 }	t_ray;
 
 typedef struct s_data
@@ -255,10 +259,10 @@ typedef struct s_data
 	t_win		win;
 	t_player	player;
 
-	// int			n_rays;
-	// int			wall_strip_wdth;
-	// t_ray		*ray_tab;
-	t_ray		ray;
+	int			n_rays;
+	int			wall_strip_wdth;
+	t_ray		*ray_tab;
+	// t_ray		ray;
 
 	t_img		mini_map;
 	t_img		walls;
