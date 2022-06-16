@@ -26,8 +26,14 @@
 /* ************************************************************************** */
 
 /*	render_manager/ray_casting.c											*/
-void	ray_casting(t_data *data, t_player *player, t_ray *ray);
+void	ray_casting(t_data *data);
 double	normalize_angle(double angle);
+void	dda_algorithm(t_data *data);
+void	get_ray_orientation(t_player *player, t_ray *ray);
+int		find_horizontal_wall_hit(t_data *data);
+int		find_vertical_wall_hit(t_data *data);
+void	get_grid_intercept(t_map *map, t_player *player, t_ray *ray, int grid);
+void	get_grid_step(t_map *map, t_ray *ray, int grid);
 
 /*	render_manager/render_env.c										*/
 void	render_env(t_data *data, int i_ray, double ray_angle, double ray_step);

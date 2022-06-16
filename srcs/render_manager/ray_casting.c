@@ -6,38 +6,38 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:23:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/15 18:24:10 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 10:01:47 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	ray_casting(t_data *data, t_player *player, t_ray *ray)
+void	ray_casting(t_data *data)
 {
 	int	column_i;
 
-	ray->angle = player->rotation_angle - (player->fov / 2);
+	data->ray.angle = data->player.rotation_angle - (data->player.fov / 2);
 	column_i = -1;
 	while(++column_i < 1)
 	{
-		ray->line.x_start = player->x;
-		ray->line.y_start = player->y;
-		ray->line.x_end = player->x + cos(ray->angle) * 30;
-		ray->line.y_end = player->y + sin(ray->angle) * 30;
-		// ray->line.color = RED;
-		// render_line(data, &data->mini_map, ray->line);
+		data->ray.line.x_start = data->player.x;
+		data->ray.line.y_start = data->player.y;
+		data->ray.line.x_end = data->player.x + cos(data->ray.angle) * 30;
+		data->ray.line.y_end = data->player.y + sin(data->ray.angle) * 30;
+		// data->ray.line.color = RED;
+		// render_line(data, &data->mini_map, data->ray.line);
 
 		////////////////////////////////////////////////////////////////
 		///	START DDA
 		////////////////////////////////////////////////////////////////
-		dda_algorithm(data, &data->player, &data->ray);
+		dda_algorithm(data);
 		////////////////////////////////////////////////////////////////
 		/// END DDA
 		///////////////////////////////////////////////////////////////
 
-		ray->angle += player->fov / data->ray.n_rays;
-		ray->angle = normalize_angle(ray->angle);
-		// ray->angle = fabs(normalize_angle(ray->angle)); //Should we use abs value ?
+		data->ray.angle += data->player.fov / data->ray.n_rays;
+		data->ray.angle = normalize_angle(data->ray.angle);
+		// data->ray.angle = fabs(normalize_angle(data->ray.angle)); //Should we use abs value ?
 	}
 }
 
@@ -51,7 +51,7 @@ double	normalize_angle(double angle)
 	return (normalized_angle);
 }
 
-void	dda_algorithm(t_data *data, t_player *player, t_ray *ray)
+void	dda_algorithm(t_data *data)
 {
 	int	horizontal_wall_hit;
 	int	vertical_wall_hit;
@@ -60,14 +60,14 @@ void	dda_algorithm(t_data *data, t_player *player, t_ray *ray)
 	vertical_wall_hit = NOT_FOUND;
 
 	// Get ray orientation
-	get_ray_orientation(player, ray);
+	get_ray_orientation(&data->player, &data->ray);
 
 	// Find horizontal wall_hit
-	if (find_horizontal_wall_hit(map, player, ray) == SUCCESS)
+	if (find_horizontal_wall_hit(data) == SUCCESS)
 		horizontal_wall_hit = FOUND;
 
 	// Find horizontal wall_hit
-	if (find_vertical_wall_hit(map, player, ray) == SUCCESS)
+	if (find_vertical_wall_hit(data) == SUCCESS)
 		horizontal_wall_hit = FOUND;
 
 	////////////////////////////////////////////////////////////////
@@ -87,102 +87,152 @@ void	get_ray_orientation(t_player *player, t_ray *ray)
 		ray->orientation = SW;
 }
 
-int	find_horizontal_wall_hit(t_map *map, t_player *player, t_ray *ray)
+int	find_horizontal_wall_hit(t_data *data)
 {
-	// Find y-coordinate of the closest horizontal map grid intersection
-	ray->y_intercept = floor(player->y / map->cell_size) * map->cell_size;
-	if (ray->orientation == SE || ray->orientation == SW)
-		ray->y_intercept += map->cell_size;
-	// Find x-coordinate of the closest horizontal map grid intersection
-	ray->x_intercept = player->x + (ray->y_intercept - player->y) / tan(ray->angle);
+	get_grid_intercept(&data->map, &data->player, &data->ray, HORIZONTAL);
+	get_grid_step(&data->map, &data->ray, HORIZONTAL);
+	find_wall_hit(data, HORIZONTAL);
+}
 
-	// Calculate the y_step and x_step increment
-	ray->y_step = map->cell_size;
-	if (ray->orientation == NE || ray->orientation == NW)
-		ray->y_step *= -1;
-	ray->x_step = map->cell_size / tan(ray->angle);
-	if (ray->x_step > 0 && (ray->orientation == NW || ray->orientation == SW))
-		ray->x_step *= -1;
-	else if (ray->x_step < 0 && (ray->orientation == NE || ray->orientation == SE))
-		ray->x_step *= -1;
-	// CHECK IF THIS CAN BE SIMPLIFIED BECAUSE WE HAVE NE, NW, SE or SW orientation
+int	find_vertical_wall_hit(t_data *data)
+{
+	get_grid_intercept(&data->map, &data->player, &data->ray, VERTICAL);
+	get_grid_step(&data->map, &data->ray, VERTICAL);
+	find_wall_hit(data, VERTICAL);
+}
 
-	double	next_horizontal_touch_x;
-	double	next_horizontal_touch_y;
-
-	next_horizontal_touch_x = ray->x_intercept;
-	next_horizontal_touch_y = ray->y_intercept;
-	if (ray->orientation == NE || ray->orientation == NW)
-		next_horizontal_touch_y --;
-	// Increment x_step and y_step until we find a wall
-	while(next_horizontal_touch_x >= 0 && next_horizontal_touch_x <= data->win.wdth && next_horizontal_touch_y >= 0 && next_horizontal_touch_y <= data->win.hgt)
+void	get_grid_intercept(t_map *map, t_player *player, t_ray *ray, int grid)
+{
+	if (grid == HORIZONTAL)
 	{
-		if (check_collision(data, next_horizontal_touch_x, next_horizontal_touch_y) == SUCCESS)
+		// Find y-coordinate of the closest horizontal map grid intersection
+		ray->y_intercept = floor(player->y / map->cell_size) * map->cell_size;
+		if (ray->orientation == SE || ray->orientation == SW)
+			ray->y_intercept += map->cell_size;
+		// Find x-coordinate of the closest horizontal map grid intersection
+		ray->x_intercept = player->x + (ray->y_intercept - player->y) / tan(ray->angle);
+	}
+	else if (grid == VERTICAL)
+	{
+		// Find x-coordinate of the closest vertical map grid intersection
+		ray->x_intercept = floor(player->x / map->cell_size) * map->cell_size;
+		if (ray->orientation == NE || ray->orientation == SE)
+			ray->x_intercept += map->cell_size;
+		// Find y-coordinate of the closest vertical map grid intersection
+		ray->y_intercept = player->y + (ray->x_intercept - player->x) * tan(ray->angle);
+	}
+}
+
+void	get_grid_step(t_map *map, t_ray *ray, int grid)
+{
+	if (grid == HORIZONTAL)
+	{
+		// Calculate the y_step and x_step increment
+		ray->y_step = map->cell_size;
+		if (ray->orientation == NE || ray->orientation == NW)
+			ray->y_step *= -1;
+		ray->x_step = map->cell_size / tan(ray->angle);
+		if (ray->x_step > 0 && (ray->orientation == NW || ray->orientation == SW))
+			ray->x_step *= -1;
+		else if (ray->x_step < 0 && (ray->orientation == NE || ray->orientation == SE))
+			ray->x_step *= -1;
+		// CHECK IF THIS CAN BE SIMPLIFIED BECAUSE WE HAVE NE, NW, SE or SW orientation
+	}
+	else if (grid == VERTICAL)
+	{
+		// Calculate the y_step and x_step increment
+		ray->x_step = map->cell_size;
+		if (ray->orientation == NW || ray->orientation == SW)
+			ray->x_step *= -1;
+		ray->y_step = map->cell_size * tan(ray->angle);
+		if (ray->y_step > 0 && (ray->orientation == NE || ray->orientation == NW))
+			ray->y_step *= -1;
+		else if (ray->y_step < 0 && (ray->orientation == SE || ray->orientation == SW))
+			ray->y_step *= -1;
+		// CHECK IF THIS CAN BE SIMPLIFIED BECAUSE WE HAVE NE, NW, SE or SW orientation
+	}
+}
+
+void	find_wall_hit(t_data *data, int grid)
+{
+	double	horizontal_wall_x;
+	double	horizontal_wall_y;
+	double	vertical_wall_x;
+	double	vertical_wall_y;
+
+	get_next_grid_touch(&data->ray, grid);
+
+	if (grid == HORIZONTAL)
+		wall_hit_loop(data, limit);
+	else if (grid == VERTICAL)
+		wall_hit_loop(data, grid);
+
+	// Increment x_step and y_step until we find a wall
+	while(data->ray.next_horizontal_touch_x >= 0 && data->ray.next_horizontal_touch_x <= data->win.wdth
+		&& data->ray.next_horizontal_touch_y >= 0 && data->ray.next_horizontal_touch_y <= data->win.hgt)
+	{
+		if (check_collision(data, data->ray.next_horizontal_touch_x, data->ray.next_horizontal_touch_y) == SUCCESS)
 		{
-			ray->horizontal_wall_hit_x = next_horizontal_touch_x;
-			ray->horizontal_wall_hit_y = next_horizontal_touch_y;
-			ray->line.x_start = player->x;
-			ray->line.y_start = player->y;
-			ray->line.x_end = ray->horizontal_wall_hit_x;
-			ray->line.y_end = ray->horizontal_wall_hit_y;
-			ray->line.color = RED;
-			render_line(data, &data->mini_map, ray->line);
+			data->ray.horizontal_wall_hit_x = data->ray.next_horizontal_touch_x;
+			data->ray.horizontal_wall_hit_y = data->ray.next_horizontal_touch_y;
+			data->ray.line.x_start = data->player.x;
+			data->ray.line.y_start = data->player.y;
+			data->ray.line.x_end = data->ray.horizontal_wall_hit_x;
+			data->ray.line.y_end = data->ray.horizontal_wall_hit_y;
+			data->ray.line.color = RED;
+			render_line(data, &data->mini_map, data->ray.line);
 			return (FOUND);
 		}
 		else
 		{
-			next_horizontal_touch_x += ray->x_step;
-			next_horizontal_touch_y += ray->y_step;
+			data->ray.next_horizontal_touch_x += data->ray.x_step;
+			data->ray.next_horizontal_touch_y += data->ray.y_step;
+		}
+	}
+
+	// Increment x_step and y_step until we find a wall
+	while(data->ray.next_vertical_touch_x >= 0 && data->ray.next_vertical_touch_x <= data->win.wdth
+		&& data->ray.next_vertical_touch_y >= 0 && data->ray.next_vertical_touch_y <= data->win.hgt)
+	{
+		if (check_collision(data, data->ray.next_vertical_touch_x, data->ray.next_vertical_touch_y) == SUCCESS)
+		{
+			data->ray.vertical_wall_hit_x = data->ray.next_vertical_touch_x;
+			data->ray.vertical_wall_hit_y = data->ray.next_vertical_touch_y;
+			data->ray.line.x_start = data->player.x;
+			data->ray.line.y_start = data->player.y;
+			data->ray.line.x_end = data->ray.vertical_wall_hit_x;
+			data->ray.line.y_end = data->ray.vertical_wall_hit_y;
+			data->ray.line.color = RED;
+			render_line(data, &data->mini_map, data->ray.line);
+			return (FOUND);
+		}
+		else
+		{
+			data->ray.next_vertical_touch_x += data->ray.x_step;
+			data->ray.next_vertical_touch_y += data->ray.y_step;
 		}
 	}
 }
 
-int	find_vertical_wall_hit(t_map *map, t_player *player, t_ray *ray)
+void	get_next_grid_touch(t_ray *ray, int grid)
 {
-	// Find x-coordinate of the closest vertical map grid intersection
-	ray->x_intercept = floor(player->x / map->cell_size) * map->cell_size;
-	if (ray->orientation == NE || ray->orientation == SE)
-		ray->x_intercept += map->cell_size;
-	// Find y-coordinate of the closest vertical map grid intersection
-	ray->y_intercept = player->y + (ray->x_intercept - player->x) * tan(ray->angle);
-
-	// Calculate the y_step and x_step increment
-	ray->x_step = map->cell_size;
-	if (ray->orientation == NW || ray->orientation == SW)
-		ray->x_step *= -1;
-	ray->y_step = map->cell_size * tan(ray->angle);
-	if (ray->y_step > 0 && (ray->orientation == NE || ray->orientation == NW))
-		ray->y_step *= -1;
-	else if (ray->y_step < 0 && (ray->orientation == SE || ray->orientation == SW))
-		ray->y_step *= -1;
-	// CHECK IF THIS CAN BE SIMPLIFIED BECAUSE WE HAVE NE, NW, SE or SW orientation
-
-	double	next_vertical_touch_x;
-	double	next_vertical_touch_y;
-
-	next_vertical_touch_x = ray->x_intercept;
-	next_vertical_touch_y = ray->y_intercept;
-	if (ray->orientation == NW || ray->orientation == SW)
-		next_vertical_touch_x --;
-	// Increment x_step and y_step until we find a wall
-	while(next_vertical_touch_x >= 0 && next_vertical_touch_x <= data->win.wdth && next_vertical_touch_y >= 0 && next_vertical_touch_y <= data->win.hgt)
+	if (grid == HORIZONTAL)
 	{
-		if (check_collision(data, next_vertical_touch_x, next_vertical_touch_y) == SUCCESS)
-		{
-			ray->vertical_wall_hit_x = next_vertical_touch_x;
-			ray->vertical_wall_hit_y = next_vertical_touch_y;
-			ray->line.x_start = player->x;
-			ray->line.y_start = player->y;
-			ray->line.x_end = ray->vertical_wall_hit_x;
-			ray->line.y_end = ray->vertical_wall_hit_y;
-			ray->line.color = RED;
-			render_line(data, &data->mini_map, ray->line);
-			return (FOUND);
-		}
-		else
-		{
-			next_vertical_touch_x += ray->x_step;
-			next_vertical_touch_y += ray->y_step;
-		}
+		ray->next_horizontal_touch_x = ray->x_intercept;
+		ray->next_horizontal_touch_y = ray->y_intercept;
+		if (ray->orientation == NE || ray->orientation == NW)
+			ray->next_horizontal_touch_y --;
 	}
+	else if (grid == VERTICAL)
+	{
+		ray->next_vertical_touch_x = ray->x_intercept;
+		ray->next_vertical_touch_y = ray->y_intercept;
+		if (ray->orientation == NW || ray->orientation == SW)
+			ray->next_vertical_touch_x --;
+	}
+}
+
+void	wall_hit_loop()
+{
+
 }

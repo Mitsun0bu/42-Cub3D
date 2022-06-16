@@ -25,7 +25,7 @@
 void	render_manager(t_data *data)
 {
 	render_mini_map(data);
-	ray_casting(data, &data->player, &data->ray);
+	ray_casting(data);
 	mlx_put_image_to_window(data->win.mlx, data->win.edge, data->mini_map.ptr, 0, 0);
 }
 

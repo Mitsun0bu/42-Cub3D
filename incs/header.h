@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/15 18:09:41 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 09:30:51 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ enum e_orientation {
 	NW,
 	SW,
 	SE
+};
+
+enum e_grid {
+	HORIZONTAL,
+	VERTICAL
 };
 
 /* ************************************************************************** */
@@ -234,10 +239,14 @@ typedef struct s_ray
 	double	y_intercept;
 	double	x_step;
 	double	y_step;
-	double	vertical_wall_hit_x;
-	double	vertical_wall_hit_y;
 	double	horizontal_wall_hit_x;
 	double	horizontal_wall_hit_y;
+	double	next_horizontal_touch_x;
+	double	next_horizontal_touch_y;
+	double	vertical_wall_hit_x;
+	double	vertical_wall_hit_y;
+	double	next_vertical_touch_x;
+	double	next_vertical_touch_y;
 	double	horizontal_hit_distance;
 	double	vertical_hit_distance;
 	double	len;
