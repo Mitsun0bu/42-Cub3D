@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 11:39:32 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 12:12:42 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 14:09:32 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,10 @@ void	init_ray(t_data *data, t_ray *ray)
 {
 	ray->wall_strip_wdth = 1;
 	ray->n_rays = data->win.wdth / ray->wall_strip_wdth;
+	// data->ray_tab = malloc(sizeof(t_ray) * data->n_rays);
+	// if (!data->ray_tab)
+	// {
+	// 	printf("Error : Malloc of ray_tab failed !");
+	// 	return (FAILED);
+	// }
 }

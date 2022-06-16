@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/15 13:01:44 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 18:17:19 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int		check_collision(t_data *data, double x, double y)
 		return (SUCCESS);
 	map_x = floor(x / data->map.cell_size);
 	map_y = floor(y / data->map.cell_size);
+	printf("map_x = %d\n", map_x);
+	printf("map_y = %d\n", map_y);
 	if (data->map.tab[map_y][map_x] == '1')
 		return (SUCCESS);
 	return (FAILED);

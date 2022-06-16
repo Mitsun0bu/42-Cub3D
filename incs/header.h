@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 13:20:54 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/16 18:23:57 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,20 +201,6 @@ typedef struct s_circle
 	int	color;
 }	t_circle;
 
-typedef struct s_vector_double
-{
-	double	x;
-	double	y;
-	// double	angle;
-}	t_vector_double;
-
-typedef struct s_vector_int
-{
-	int	x;
-	int	y;
-	double	angle;
-}	t_vector_int;
-
 typedef struct s_player
 {
 	double	x;
@@ -234,7 +220,10 @@ typedef struct s_ray
 	int		n_rays;
 	int		wall_strip_wdth;
 	double	angle;
-	t_line	line;
+	double	dir_x_start;
+	double	dir_y_start;
+	double	dir_x_end;
+	double	dir_y_end;
 	double	x_intercept;
 	double	y_intercept;
 	double	x_step;
@@ -256,6 +245,7 @@ typedef struct s_ray
 	double	len;
 	int		grid_hit;
 	int		orientation;
+	t_line	line;
 }	t_ray;
 
 typedef struct s_data
@@ -264,6 +254,10 @@ typedef struct s_data
 	t_map		map;
 	t_win		win;
 	t_player	player;
+
+	// int			n_rays;
+	// int			wall_strip_wdth;
+	// t_ray		*ray_tab;
 	t_ray		ray;
 
 	t_img		mini_map;
