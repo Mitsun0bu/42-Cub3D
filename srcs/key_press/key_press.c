@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 19:00:45 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 11:07:40 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ void	turn_left(t_data *data)
 {
 	data->player.turn_direction = -1;
 	data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
-	// data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
+	data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
 }
 
 void	turn_right(t_data *data)
 {
 	data->player.turn_direction = 1;
 	data->player.rotation_angle += data->player.turn_direction * data->player.rotation_speed;
-	// data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
+	data->player.rotation_angle = normalize_angle(data->player.rotation_angle);
 }
 
 void	update_player_position(t_data *data, double move_step)

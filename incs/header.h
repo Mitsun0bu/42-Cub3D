@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 19:16:22 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 10:54:39 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 /* ************************************************************************** */
 
 # include <fcntl.h>
+# include <float.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -222,11 +223,14 @@ typedef struct s_ray
 	double	angle;
 	double	wall_hit_x;
 	double	wall_hit_y;
-	int		is_facing_up;
-	int		is_facing_down;
-	int		is_facing_left;
-	int		is_facing_right;
+	double	distance;
+	// int		is_facing_up;
+	// int		is_facing_down;
+	// int		is_facing_left;
+	// int		is_facing_right;
+	int		orientation;
 	int		grid_hit;
+	t_line	line;
 	// double	dir_x_start;
 	// double	dir_y_start;
 	// double	dir_x_end;
@@ -249,7 +253,6 @@ typedef struct s_ray
 	// double	vertical_hit_distance;
 	// double	len;
 	// int		orientation;
-	// t_line	line;
 }	t_ray;
 
 typedef struct s_data

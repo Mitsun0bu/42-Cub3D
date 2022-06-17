@@ -34,6 +34,7 @@ void	render_mini_map(t_data *data)
 	int				x;
 	int				y;
 
+	render_background(data);
 	y = -1;
 	while (++y < data->map.hgt)
 	{
@@ -44,14 +45,26 @@ void	render_mini_map(t_data *data)
 	render_player(data);
 }
 
+void	render_background(t_data *data)
+{
+	t_rect	background;
+
+	background.x = 0;
+	background.y = 0;
+	background.wdth = data->win.wdth - 1;
+	background.hgt = data->win.hgt - 1;
+	background.color = BLACK;
+	render_rect(data, &data->mini_map, background);
+}
+
 void	render_walls_and_tiles(t_data *data, int x, int y)
 {
 	t_rect	cell;
 
 	cell.x = x * data->map.cell_size;
 	cell.y = y * data->map.cell_size;
-	cell.wdth = data->map.cell_size;
-	cell.hgt = data->map.cell_size;
+	cell.wdth = data->map.cell_size - 1;
+	cell.hgt = data->map.cell_size - 1;
 
 	if (data->map.tab[y][x] == '1')
 	{

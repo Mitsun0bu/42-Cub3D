@@ -27,17 +27,19 @@
 
 /*	render_manager/ray_casting.c											*/
 void	ray_casting(t_data *data);
+void	cast_single_ray(t_data *data, double ray_angle, int column_i);
 double	normalize_angle(double angle);
-void	dda_algorithm(t_data *data);
-void	get_ray_orientation(t_player *player, t_ray *ray);
-void		find_horizontal_wall_hit(t_data *data);
-void	find_vertical_wall_hit(t_data *data);
-void	get_grid_intercept(t_map *map, t_player *player, t_ray *ray, int grid);
-void	get_grid_step(t_map *map, t_ray *ray, int grid);
-void		find_wall_hit(t_data *data, int grid);
-void	get_next_grid_touch(t_ray *ray, int grid);
-void		horizontal_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
-void		vertical_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
+float	calculate_distance(float x1, float y1, float x2, float y2);
+// void	dda_algorithm(t_data *data);
+// void	get_ray_orientation(t_player *player, t_ray *ray);
+// void	find_horizontal_wall_hit(t_data *data);
+// void	find_vertical_wall_hit(t_data *data);
+// void	get_grid_intercept(t_map *map, t_player *player, t_ray *ray, int grid);
+// void	get_grid_step(t_map *map, t_ray *ray, int grid);
+// void	find_wall_hit(t_data *data, int grid);
+// void	get_next_grid_touch(t_ray *ray, int grid);
+// void	horizontal_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
+// void	vertical_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
 
 
 /*	render_manager/render_env.c										*/
@@ -51,6 +53,7 @@ void	render_manager(t_data *data);
 
 /*	render_manager/render_mini_map.c										*/
 void	render_mini_map(t_data *data);
+void	render_background(t_data *data);
 void	render_walls_and_tiles(t_data *data, int x, int y);
 void	render_player(t_data *data);
 

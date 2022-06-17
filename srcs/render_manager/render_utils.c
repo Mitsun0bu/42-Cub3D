@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:47:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 18:17:29 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 09:31:47 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	render_line(t_data *data, t_img *render, t_line line)
 	y = line.y_start;
 	while (n_pixels)
 	{
-    	pixel_put(render, x, y, line.color);
-    	x += dx;
-    	y += dy;
-    	n_pixels--;
+		pixel_put(render, x, y, line.color);
+		x += dx;
+		y += dy;
+		n_pixels--;
 	}
 	return (0);
 }
