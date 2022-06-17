@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:33:14 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/15 13:01:44 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 17:41:42 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static void	get_window (t_data *data);
 
 void	window_manager(t_data *data)
 {
-	data->win.wdth = data->map.wdth * data->map.cell_size;
-	data->win.hgt = data->map.hgt * data->map.cell_size;
+	// data->win.wdth = data->map.wdth * data->map.cell_size;
+	// data->win.hgt = data->map.hgt * data->map.cell_size;
+	data->win.wdth = 960;
+	data->win.hgt = 640;
 	get_window(data);
 	mlx_hook(data->win.edge, 17, 0, close_window, data);
 }

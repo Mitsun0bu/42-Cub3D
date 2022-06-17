@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:25:39 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 12:52:28 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 16:09:00 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /* ************************************************************************** */
 
 /*	utils/calculate_distance.c	*/
-float	calculate_distance(float x1, float y1, float x2, float y2);
+double	calculate_distance(double x1, double y1, double x2, double y2);
 
 /*	utils/normalize_angle.c	*/
 double	normalize_angle(double angle);

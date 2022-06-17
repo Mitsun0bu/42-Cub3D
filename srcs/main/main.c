@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 10:37:24 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 17:56:52 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
-	(void)ac;
-	(void)av;
+
 	ft_memset(&data, 0, sizeof(data));
 	config_parser(ac, av, &data);
 	data.map.cell_size = 64;
@@ -30,7 +29,6 @@ int	main(int ac, char **av)
 	init_images(&data, &data.config);
 	init_player(&data, &data.player, &data.config);
 	init_ray_tab(&data);
-	// init_ray(&data, &data.ray);
 	render_manager(&data);
 	mlx_hook(data.win.edge, 2, 0, key_press, &data);
 	mlx_loop(data.win.mlx);

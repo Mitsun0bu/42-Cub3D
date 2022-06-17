@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 12:24:47 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 15:31:50 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,8 @@ typedef struct s_ray
 	int		orientation;
 	double	wall_hit_x;
 	double	wall_hit_y;
+	int		horizontal_wall_hit;
+	int		vertical_wall_hit;
 	int		grid_hit;
 	t_line	line;
 }	t_ray;
@@ -239,7 +241,9 @@ typedef struct s_dda_ray
 	double	wall_hit_y;
 	double	next_touch_x;
 	double	next_touch_y;
-	int		hit_found;
+	int		horizontal_wall_hit;
+	int		vertical_wall_hit;
+	int		grid_hit;
 	double	len;
 }	t_dda_ray;
 

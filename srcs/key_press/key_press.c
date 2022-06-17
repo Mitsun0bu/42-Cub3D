@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 11:07:40 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 17:58:27 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	key_press(int key, t_data *data)
 		turn_left(data);
 	if (key == right_arrow)
 		turn_right(data);
+	change_player_orientation(data, &data->player);
 	render_manager(data);
 	return (0);
 }
@@ -112,11 +113,30 @@ int		check_collision(t_data *data, double x, double y)
 	int	map_x;
 	int	map_y;
 
-	if (x < 0 || x > data->win.wdth || y < 0 || x > data->win.hgt)
+	if (x < 0 || x > data->win.wdth || y < 0 || y > data->win.hgt)
 		return (SUCCESS);
 	map_x = floor(x / data->map.cell_size);
 	map_y = floor(y / data->map.cell_size);
+
 	if (data->map.tab[map_y][map_x] == '1')
 		return (SUCCESS);
 	return (FAILED);
+}
+
+void	change_player_orientation(t_data *data, t_player *player)
+{
+	if ((data->player.rotation_angle >= ((7 * M_PI) / 4)
+			&& data->player.rotation_angle < (2 * M_PI))
+		|| (data->player.rotation_angle >= 0
+			&& data->player.rotation_angle < (M_PI / 4)))
+		player->orientation = 'E';
+	else if (data->player.rotation_angle >= (M_PI / 4)
+		&& data->player.rotation_angle < ((3 * M_PI) / 4))
+		player->orientation = 'S';
+	else if (data->player.rotation_angle >= ((3 * M_PI) / 4)
+		&& data->player.rotation_angle < ((5 * M_PI) / 4))
+		player->orientation = 'W';
+	else if (data->player.rotation_angle >= ((5 * M_PI) / 4)
+		&& data->player.rotation_angle < ((7 * M_PI) / 4))
+		player->orientation = 'N';
 }
