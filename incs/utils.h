@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:25:39 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:25:52 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 12:52:28 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 /*                              ~~~ PROTOTYPES ~~~                            */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*	utils/calculate_distance.c	*/
+float	calculate_distance(float x1, float y1, float x2, float y2);
+
+/*	utils/normalize_angle.c	*/
+double	normalize_angle(double angle);
 
 /*	utils/pixel_put.c	*/
 void	pixel_put(t_img *render, int x, int y, int color);

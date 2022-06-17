@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 17:19:42 by llethuil          #+#    #+#              #
-#    Updated: 2022/06/16 17:56:44 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/06/17 12:57:37 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,9 +74,16 @@ SRCS_LST	:=	config_parser/check_map.c					\
 				init_ray/init_ray.c							\
 				key_press/key_press.c						\
 				main/main.c									\
+				render_manager/dda_algorithm_utils.c		\
+				render_manager/dda_algorithm.c				\
+				render_manager/h_probe_manager.c			\
 				render_manager/ray_casting.c				\
 				render_manager/render_manager.c				\
+				render_manager/render_mini_map.c			\
 				render_manager/render_utils.c				\
+				render_manager/v_probe_manager.c			\
+				utils/calculate_distance.c					\
+				utils/normalize_angle.c						\
 				utils/pixel_put.c							\
 				window_manager/window_manager.c				\
 

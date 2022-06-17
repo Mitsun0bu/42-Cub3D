@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 10:54:39 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 12:24:47 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,42 +218,30 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	// int		n_rays;
-	// int		wall_strip_wdth;
 	double	angle;
+	double	distance;
+	int		orientation;
 	double	wall_hit_x;
 	double	wall_hit_y;
-	double	distance;
-	// int		is_facing_up;
-	// int		is_facing_down;
-	// int		is_facing_left;
-	// int		is_facing_right;
-	int		orientation;
 	int		grid_hit;
 	t_line	line;
-	// double	dir_x_start;
-	// double	dir_y_start;
-	// double	dir_x_end;
-	// double	dir_y_end;
-	// double	x_intercept;
-	// double	y_intercept;
-	// double	x_step;
-	// double	y_step;
-	// double	horizontal_wall_hit_x;
-	// double	horizontal_wall_hit_y;
-	// double	next_horizontal_touch_x;
-	// double	next_horizontal_touch_y;
-	// double	vertical_wall_hit_x;
-	// double	vertical_wall_hit_y;
-	// double	next_vertical_touch_x;
-	// double	next_vertical_touch_y;
-	// double	x_to_check;
-	// double	y_to_check;
-	// double	horizontal_hit_distance;
-	// double	vertical_hit_distance;
-	// double	len;
-	// int		orientation;
 }	t_ray;
+
+typedef struct s_dda_ray
+{
+	double	angle;
+	int		orientation;
+	double	x_intercept;
+	double	y_intercept;
+	double	x_step;
+	double	y_step;
+	double	wall_hit_x;
+	double	wall_hit_y;
+	double	next_touch_x;
+	double	next_touch_y;
+	int		hit_found;
+	double	len;
+}	t_dda_ray;
 
 typedef struct s_data
 {

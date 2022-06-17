@@ -25,42 +25,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*	render_manager/ray_casting.c											*/
+/*	render_manager/dda_algorithm_utils.c									  */
+int		get_ray_orientation(t_player *player, double ray_angle);
+void	calculate_probes_len(t_player *player, t_dda_ray *h_probe, t_dda_ray *v_probe);
+void	update_ray(t_ray *ray, double ray_angle, t_dda_ray *h_probe, t_dda_ray *v_probe);
+
+/*	render_manager/dda_algorithm.c											  */
+void	dda_algorithm(t_data *data, double ray_angle, int column_i);
+
+/*	render_manager/h_probe_manager.c								  */
+void	init_h_probe(t_map *map, t_player *player, double ray_angle, t_dda_ray *h_probe);
+void	find_h_probe_wall_hit(t_data *data, t_win *win, t_dda_ray *h_probe);
+
+/*	render_manager/ray_casting.c											  */
 void	ray_casting(t_data *data);
-void	cast_single_ray(t_data *data, double ray_angle, int column_i);
-double	normalize_angle(double angle);
-float	calculate_distance(float x1, float y1, float x2, float y2);
-// void	dda_algorithm(t_data *data);
-// void	get_ray_orientation(t_player *player, t_ray *ray);
-// void	find_horizontal_wall_hit(t_data *data);
-// void	find_vertical_wall_hit(t_data *data);
-// void	get_grid_intercept(t_map *map, t_player *player, t_ray *ray, int grid);
-// void	get_grid_step(t_map *map, t_ray *ray, int grid);
-// void	find_wall_hit(t_data *data, int grid);
-// void	get_next_grid_touch(t_ray *ray, int grid);
-// void	horizontal_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
-// void	vertical_wall_hit_loop(t_data *data, t_win *win, t_player *player, t_ray *ray);
 
-
-/*	render_manager/render_env.c										*/
-void	render_env(t_data *data, int i_ray, double ray_angle, double ray_step);
-void	render_ceiling(t_data *data, int i_ray, double column_hgt);
-void	render_floor(t_data *data, int i_ray, double column_hgt);
-// void	render_walls(t_data *data, int i_ray, t_vector ray, double column_hgt);
-
-/*	render_manager/render_manager.c											*/
+/*	render_manager/render_manager.c											  */
 void	render_manager(t_data *data);
 
-/*	render_manager/render_mini_map.c										*/
+/*	render_manager/render_mini_map.c										  */
 void	render_mini_map(t_data *data);
 void	render_background(t_data *data);
 void	render_walls_and_tiles(t_data *data, int x, int y);
 void	render_player(t_data *data);
 
-/*	render_manager/render_utils.c											*/
+/*	render_manager/render_utils.c											  */
 int     render_rect(t_data *data, t_img *render, t_rect rect);
 int	    render_line(t_data *data, t_img *render, t_line line);
 int     render_circle(t_data *data, t_img *render, t_circle circle);
 int		get_pixel_color_from_texture(t_texture *texture, t_coord *coord);
+
+/*	render_manager/v_probe_manager.c									  */
+void	init_v_probe(t_map *map, t_player *player, double ray_angle, t_dda_ray *v_probe);
+void	find_v_probe_wall_hit(t_data *data, t_win *win, t_dda_ray *v_probe);
 
 #endif

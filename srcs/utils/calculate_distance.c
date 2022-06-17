@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_manager.c                                      :+:      :+:    :+:   */
+/*   calculate_distance.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 17:36:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/07 09:48:15 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/06/17 12:46:10 by llethuil          #+#    #+#             */
+/*   Updated: 2022/06/17 12:46:44 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-	The render_manager.c file is where we :
-	- initialize the mini_map image.
-	- add pixels to the image that correspond to:
-		- the map
-		- the player position
-		- the rays
-	- put the mini_map imge to the window
-*/
-
 #include "main.h"
 
-void	render_manager(t_data *data)
+float calculate_distance(float x1, float y1, float x2, float y2)
 {
-	render_mini_map(data);
-	ray_casting(data);
-	mlx_put_image_to_window(data->win.mlx, data->win.edge, data->mini_map.ptr, 0, 0);
+	float	distance;
+
+	distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+	return (distance);
 }
