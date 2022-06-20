@@ -45,7 +45,7 @@ static void	render_game(t_data *data)
 	i = -1;
 	while (++i < data->n_rays)
 	{
-		// printf("grid_hit  : %d\n", data->ray_tab[i].grid_hit);
+		data->ray_tab[i].distance = data->ray_tab[i].distance * cos(data->ray_tab[i].angle - data->player.rotation_angle);
 		distance_proj_plane = (data->win.wdth / 2) / (tan(data->player.fov / 2));
 		column_hgt = (data->map.cell_size / data->ray_tab[i].distance) * distance_proj_plane;
 

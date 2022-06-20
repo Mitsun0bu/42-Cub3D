@@ -29,7 +29,7 @@ void	init_player(t_data *data, t_player *player, t_config *config)
 	player->y = player->y * data->map.cell_size + (data->map.cell_size / 2);
 	player->radius = 3;
 	init_player_dir(player, config);
-	player->move_speed = 5.0;
+	player->move_speed = 8.0;
 	player->rotation_speed = 2 * (M_PI / 180); // 2 deg converted into rad
 	player->fov = 60 * (M_PI / 180); // 60deg converted into rad
 }

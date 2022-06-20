@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:35:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 12:36:12 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 12:01:08 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	render_mini_map(t_data *data)
 	while (++y < data->map.hgt)
 	{
 		x = -1;
-		while (++x < data->map.wdth)
+		while (++x < (int)ft_strlen(data->map.tab[y]))
 			render_walls_and_tiles(data, x, y);
 	}
 	render_player(data);
