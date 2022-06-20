@@ -29,9 +29,9 @@ static int	get_tex_color(t_texture *texture, t_coord *coord);
 
 void	render_manager(t_data *data)
 {
-	// render_mini_map(data);
 	ray_casting(data);
 	render_game(data);
+	render_mini_map(data);
 	mlx_put_image_to_window(data->win.mlx, data->win.edge, data->walls.ptr, 0, 0);
 	// mlx_put_image_to_window(data->win.mlx, data->win.edge, data->mini_map.ptr, 0, 0);
 }
@@ -76,7 +76,7 @@ static void	display_wall(t_data *data, double column_hgt, int i)
 		if (hit_y < 0)
 			hit_y = 0;
 		color = get_tex_color(&texture, &(t_coord){hit_x, hit_y});
-		if (data->win.hgt/2+column_hgt/2 - j >= 0 && data->win.hgt/2+column_hgt/2 - j <= data->win.hgt)
+		if (data->win.hgt/2+column_hgt/2 - j >= 0 && data->win.hgt/2+column_hgt/2 - j < data->win.hgt)
 			pixel_put(&data->walls, i, data->win.hgt/2+column_hgt/2 - j, color);
 	}
 }

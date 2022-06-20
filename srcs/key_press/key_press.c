@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 11:37:43 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 13:45:04 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,18 @@ void	update_player_position(t_data *data, double move_step)
 {
 	double	new_player_x;
 	double	new_player_y;
+	double	test_x;
+	double	test_y;
 
 	new_player_x = data->player.x;
 	new_player_y = data->player.y;
 	new_player_x += cos(data->player.rotation_angle) * move_step;
 	new_player_y += sin(data->player.rotation_angle) * move_step;
-	if (check_collision(data, new_player_x, new_player_y) == FAILED)
+	test_x = data->player.x;
+	test_y = data->player.y;
+	test_x += cos(data->player.rotation_angle) * (data->player.walk_direction * (data->player.move_speed + 5));
+	test_y += sin(data->player.rotation_angle) * (data->player.walk_direction * (data->player.move_speed + 5));
+	if (check_collision(data, test_x, test_y) == FAILED)
 	{
 		data->player.x = new_player_x;
 		data->player.y = new_player_y;
