@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 17:58:27 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 11:37:43 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	update_player_position(t_data *data, double move_step)
 	new_player_y = data->player.y;
 	new_player_x += cos(data->player.rotation_angle) * move_step;
 	new_player_y += sin(data->player.rotation_angle) * move_step;
-	// If no wall only, update player position
 	if (check_collision(data, new_player_x, new_player_y) == FAILED)
 	{
 		data->player.x = new_player_x;
@@ -113,11 +112,10 @@ int		check_collision(t_data *data, double x, double y)
 	int	map_x;
 	int	map_y;
 
-	if (x < 0 || x > data->win.wdth || y < 0 || y > data->win.hgt)
-		return (SUCCESS);
 	map_x = floor(x / data->map.cell_size);
 	map_y = floor(y / data->map.cell_size);
-
+	if (map_y <= 0 ||map_y > data->win.hgt / data->map.cell_size || map_x <= 0 || map_x > (int)ft_strlen(data->map.tab[map_y]))
+		return (SUCCESS);
 	if (data->map.tab[map_y][map_x] == '1')
 		return (SUCCESS);
 	return (FAILED);

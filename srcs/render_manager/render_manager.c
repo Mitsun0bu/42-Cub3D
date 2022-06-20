@@ -48,8 +48,12 @@ static void	render_game(t_data *data)
 		// printf("grid_hit  : %d\n", data->ray_tab[i].grid_hit);
 		distance_proj_plane = (data->win.wdth / 2) / (tan(data->player.fov / 2));
 		column_hgt = (data->map.cell_size / data->ray_tab[i].distance) * distance_proj_plane;
-		render_rect(data, &data->walls, (t_rect){i, 0, 1, data->win.hgt/2+column_hgt/2, data->config.ceiling_hex_code});
-		render_rect(data, &data->walls, (t_rect){i, data->win.hgt/2+column_hgt/2 + 1, 1, data->win.hgt - (data->win.hgt/2+column_hgt/2), data->config.floor_hex_code});
+
+		if (data->win.hgt/2+column_hgt/2 >= 0 && data->win.hgt/2+column_hgt/2 <= data->win.hgt)
+			render_rect(data, &data->walls, (t_rect){i, 0, 1, data->win.hgt/2+column_hgt/2, data->config.ceiling_hex_code});
+
+		if ( data->win.hgt - (data->win.hgt/2+column_hgt/2) >= 0 &&  data->win.hgt - (data->win.hgt/2+column_hgt/2) <= data->win.hgt)
+			render_rect(data, &data->walls, (t_rect){i, data->win.hgt/2+column_hgt/2 + 1, 1, data->win.hgt - (data->win.hgt/2+column_hgt/2), data->config.floor_hex_code});
 		display_wall(data, column_hgt, i);
 	}
 }
@@ -72,14 +76,13 @@ static void	display_wall(t_data *data, double column_hgt, int i)
 		if (hit_y < 0)
 			hit_y = 0;
 		color = get_tex_color(&texture, &(t_coord){hit_x, hit_y});
-		if (color != FAILED)
+		if (data->win.hgt/2+column_hgt/2 - j >= 0 && data->win.hgt/2+column_hgt/2 - j <= data->win.hgt)
 			pixel_put(&data->walls, i, data->win.hgt/2+column_hgt/2 - j, color);
 	}
 }
 
 static t_texture	get_texture(t_data *data, int i)
 {
-	// printf("data->ray_tab[%d].orientation : %d\n", i, data->ray_tab[i].orientation);
 	if (data->player.orientation == 'N')
 	{
 		if (data->ray_tab[i].grid_hit == HORIZONTAL)
