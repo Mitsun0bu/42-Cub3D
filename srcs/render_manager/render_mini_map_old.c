@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_mini_map.c                                  :+:      :+:    :+:   */
+/*   render_mini_map_old.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:35:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 12:01:08 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 18:50:04 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	render_player(t_data *data)
 
 	// line.x_start = data->player.x;
 	// line.y_start = data->player.y;
-	// line.x_end = data->player.x + cos(data->player.rotation_angle) * 20;
-	// line.y_end = data->player.y + sin(data->player.rotation_angle) * 20;
+	// line.x_end = data->player.x + cos(data->player.rot_angle) * 20;
+	// line.y_end = data->player.y + sin(data->player.rot_angle) * 20;
 	// line.color = BLACK;
 	// render_line(data, &data->mini_map, line);
 }

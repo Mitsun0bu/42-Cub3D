@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_ray.c                                         :+:      :+:    :+:   */
+/*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/15 11:39:32 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 15:26:34 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/06/20 15:31:27 by llethuil          #+#    #+#             */
+/*   Updated: 2022/06/20 18:50:04 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	init_ray_tab(t_data *data)
+void	turn_left(t_player *player)
 {
-	data->wall_strip_wdth = 1;
-	data->n_rays = data->win.wdth / data->wall_strip_wdth;
-	data->ray_tab = malloc(sizeof(t_ray) * data->n_rays);
-	if (!data->ray_tab)
-	{
-		printf("Error : Malloc of ray_tab failed !");
-		return (FAILED);
-	}
-	return (SUCCESS);
+	player->turn_direction = -1;
+	player->rot_angle += player->turn_direction * player->rotation_speed;
+	player->rot_angle = normalize_angle(player->rot_angle);
+}
+
+void	turn_right(t_player *player)
+{
+	player->turn_direction = 1;
+	player->rot_angle += player->turn_direction * player->rotation_speed;
+	player->rot_angle = normalize_angle(player->rot_angle);
 }

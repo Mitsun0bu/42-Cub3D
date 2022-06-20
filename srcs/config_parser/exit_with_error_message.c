@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:34:03 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:35:58 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 15:06:17 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static void	print_open_err_message(int err_no);
 static void	print_config_err_message(int err_no);
-static void print_map_err_message(int err_no);
+static void	print_map_err_message(int err_no);
 
 void	exit_with_error_message(int err_type, int err_no)
 {
@@ -60,7 +60,7 @@ static void	print_config_err_message(int err_no)
 		printf("Missing specification(s) in map file !\n");
 	else if (err_no == invalid)
 		printf("Invalid specification(s) in map file !\n");
-	else if(err_no == extension)
+	else if (err_no == extension)
 		printf("Format of texture files must be '.xpm'\n");
 	printf("Usage :\n");
 	printf("NO\t./<path_to_the_north_texture>.xpm\n");
@@ -71,7 +71,7 @@ static void	print_config_err_message(int err_no)
 	printf("(where R, G and B are integers between 0 and 255)\n");
 }
 
-static void print_map_err_message(int err_no)
+static void	print_map_err_message(int err_no)
 {
 	if (err_no == missing)
 		printf("Map is missing in the map file!\n");

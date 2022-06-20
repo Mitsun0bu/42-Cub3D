@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 17:19:42 by llethuil          #+#    #+#              #
-#    Updated: 2022/06/17 12:57:37 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/06/20 16:55:52 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ OBJS_DIR	:=	.objs
 
 INCS_LST	:=	config_parser.h								\
 				header.h									\
-				init_images.h								\
+				init_img.h									\
 				init_player.h								\
 				init_ray.h									\
 				key_press.h									\
@@ -69,26 +69,31 @@ SRCS_LST	:=	config_parser/check_map.c					\
 				config_parser/config_parser.c				\
 				config_parser/replace_spaces_in_map.c		\
 				config_parser/replace_spaces_in_str.c		\
-				init_images/init_images.c					\
+				init_img/init_img.c							\
 				init_player/init_player.c					\
 				init_ray/init_ray.c							\
 				key_press/key_press.c						\
+				key_press/movement.c						\
+				key_press/rotation.c						\
 				main/main.c									\
 				render_manager/dda_algorithm_utils.c		\
 				render_manager/dda_algorithm.c				\
 				render_manager/h_probe_manager.c			\
 				render_manager/ray_casting.c				\
+				render_manager/render_game.c				\
 				render_manager/render_manager.c				\
 				render_manager/render_mini_map.c			\
 				render_manager/render_utils.c				\
+				render_manager/texture_utils.c				\
 				render_manager/v_probe_manager.c			\
 				utils/calculate_distance.c					\
+				utils/check_collision.c						\
 				utils/normalize_angle.c						\
 				utils/pixel_put.c							\
 				window_manager/window_manager.c				\
 
 SUBDIRS_LST	:=	config_parser								\
-				init_images									\
+				init_img									\
 				init_player									\
 				init_ray									\
 				key_press									\

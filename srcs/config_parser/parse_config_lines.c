@@ -81,7 +81,7 @@ static char	*copy_color(char *str, int i_start)
 
 	color = NULL;
 	i = i_start;
-	while(str[i] && str[i] != '\n')
+	while (str[i] && str[i] != '\n')
 	{
 		if (ft_isdigit(str[i]) == FAILED && !ft_strchr(" ,", str[i]))
 			exit_with_error_message(config_err, invalid);

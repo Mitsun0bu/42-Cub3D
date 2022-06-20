@@ -40,7 +40,7 @@ void	check_map(t_data *data)
 				exit_with_error_message(map_err, invalid);
 			if (ft_strchr("NSEW", data->map.tab[y][x]))
 				if (get_player_info(data, x, y) == FAILED)
-				exit_with_error_message(map_err, n_player);
+					exit_with_error_message(map_err, n_player);
 			if (data->map.tab[y][x] != '1')
 				if (map_is_closed(&data->map, x, y) == NO)
 					exit_with_error_message(map_err, walls);

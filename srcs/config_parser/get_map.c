@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:34:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/14 10:49:18 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 15:07:17 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*get_first_line_of_map(t_map *map, int fd)
 	{
 		map_start = ft_get_next_line(fd);
 		if (ft_strcmp(map_start, "\n") == FAILED)
-			break;
+			break ;
 		free(map_start);
 	}
 	map->hgt ++;
@@ -60,8 +60,9 @@ static char	*get_rest_of_map(t_map *map, int fd)
 {
 	char	*line;
 	char	*map_rest;
-	int		i = 0;
+	int		i;
 
+	i = 0;
 	line = NULL;
 	map_rest = NULL;
 	while (1)

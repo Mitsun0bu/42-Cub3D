@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 17:56:52 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 15:24:35 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 	config_parser(ac, av, &data);
 	data.map.cell_size = 64;
 	window_manager(&data);
-	init_images(&data, &data.config);
+	init_img(&data, &data.config, &data.mini_map, &data.walls);
 	init_player(&data, &data.player, &data.config);
 	init_ray_tab(&data);
 	render_manager(&data);

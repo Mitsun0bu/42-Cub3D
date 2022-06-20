@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 15:31:50 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 18:51:28 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ typedef struct s_player
 	char	orientation;
 	int		turn_direction;
 	int		walk_direction;
-	double	rotation_angle;
+	double	rot_angle;
 	double	move_speed;
 	double	rotation_speed;
 	double	fov;
@@ -219,7 +219,7 @@ typedef struct s_player
 typedef struct s_ray
 {
 	double	angle;
-	double	distance;
+	double	dist;
 	int		orientation;
 	double	wall_hit_x;
 	double	wall_hit_y;
@@ -229,12 +229,12 @@ typedef struct s_ray
 	t_line	line;
 }	t_ray;
 
-typedef struct s_dda_ray
+typedef struct s_probe
 {
 	double	angle;
 	int		orientation;
-	double	x_intercept;
-	double	y_intercept;
+	double	x_intcp;
+	double	y_intcp;
 	double	x_step;
 	double	y_step;
 	double	wall_hit_x;
@@ -245,7 +245,7 @@ typedef struct s_dda_ray
 	int		vertical_wall_hit;
 	int		grid_hit;
 	double	len;
-}	t_dda_ray;
+}	t_probe;
 
 typedef struct s_data
 {
@@ -257,15 +257,14 @@ typedef struct s_data
 	int			n_rays;
 	int			wall_strip_wdth;
 	t_ray		*ray_tab;
-	// t_ray		ray;
 
 	t_img		mini_map;
 	t_img		walls;
 
-	t_texture	east_texture;
-	t_texture	north_texture;
-	t_texture	south_texture;
-	t_texture	west_texture;
+	t_texture	ea_tex;
+	t_texture	no_tex;
+	t_texture	so_tex;
+	t_texture	we_tex;
 }	t_data;
 
 #endif

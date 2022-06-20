@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:33:31 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:33:33 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 15:10:19 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	replace_spaces_in_str(char *str, char c)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '\t' || str[i] == '\v' || str[i] == '\f'
 			|| str[i] == '\r' || str[i] == ' ')

@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:23:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 13:27:37 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 18:50:04 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ray_casting(t_data *data)
 	int		column_i;
 	double	ray_angle;
 
-	ray_angle = data->player.rotation_angle - (data->player.fov / 2);
+	ray_angle = data->player.rot_angle - (data->player.fov / 2);
 	column_i = -1;
-	while(++column_i < data->n_rays)
+	while (++column_i < data->n_rays)
 	{
 		dda_algorithm(data, ray_angle, column_i);
 		data->ray_tab[column_i].line.x_start = data->player.x;

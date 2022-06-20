@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:24:23 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/15 11:41:02 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 15:22:14 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 /* ************************************************************************** */
 
 # include "header.h"
-# include "init_images.h"
+# include "init_img.h"
 # include "init_player.h"
 # include "init_ray.h"
 # include "key_press.h"

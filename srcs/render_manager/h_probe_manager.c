@@ -12,60 +12,61 @@
 
 #include "main.h"
 
-void	init_h_probe(t_map *map, t_player *player, double ray_angle, t_dda_ray *h_probe)
+void	init_h_probe(t_map *map, t_player *player, double angle, t_probe *probe)
 {
-	h_probe->orientation = get_ray_orientation(player, ray_angle);
-	h_probe->wall_hit_x = 0;
-	h_probe->wall_hit_y = 0;
+	int	we_oriented;
+	int	ea_oriented;
 
-	// Find the y-coordinate of the closest horizontal grid intersection
-	h_probe->y_intercept = floor(player->y / map->cell_size) * map->cell_size;
-	h_probe->y_intercept += (h_probe->orientation == SW || h_probe->orientation == SE) ? map->cell_size : 0;
-
-	// Find the x-coordinate of the closest horizontal grid intersection
-	h_probe->x_intercept = player->x + (h_probe->y_intercept - player->y) / tan(ray_angle);
-
-	// Calculate the increment x_step and y_step
-	h_probe->y_step = map->cell_size;
-	h_probe->y_step *= (h_probe->orientation == NW || h_probe->orientation == NE) ? -1 : 1;
-
-	h_probe->x_step = map->cell_size / tan(ray_angle);
-	h_probe->x_step *= ((h_probe->orientation == NW || h_probe->orientation == SW) && h_probe->x_step > 0) ? -1 : 1;
-	h_probe->x_step *= ((h_probe->orientation == NE || h_probe->orientation == SE) && h_probe->x_step < 0) ? -1 : 1;
-
-	h_probe->next_touch_x = h_probe->x_intercept;
-	h_probe->next_touch_y = h_probe->y_intercept;
-	h_probe->horizontal_wall_hit = 0;
-	h_probe->vertical_wall_hit = 0;
+	probe->orientation = get_ray_orientation(player, angle);
+	probe->wall_hit_x = 0;
+	probe->wall_hit_y = 0;
+	we_oriented = (probe->orientation == NW || probe->orientation == SW);
+	ea_oriented = (probe->orientation == NE || probe->orientation == SE);
+	probe->y_intcp = floor(player->y / map->cell_size) * map->cell_size;
+	if (probe->orientation == SW || probe->orientation == SE)
+		probe->y_intcp += map->cell_size;
+	probe->x_intcp = player->x + (probe->y_intcp - player->y) / tan(angle);
+	probe->y_step = map->cell_size;
+	if (probe->orientation == NW || probe->orientation == NE)
+		probe->y_step *= -1;
+	probe->x_step = map->cell_size / tan(angle);
+	if (we_oriented && probe->x_step > 0)
+		probe->x_step *= -1;
+	if (ea_oriented && probe->x_step < 0)
+		probe->x_step *= -1;
+	probe->next_touch_x = probe->x_intcp;
+	probe->next_touch_y = probe->y_intcp;
+	probe->horizontal_wall_hit = 0;
+	probe->vertical_wall_hit = 0;
 }
 
-void	find_h_probe_wall_hit(t_data *data, t_win *win, t_dda_ray *h_probe)
+void	find_h_probe_wall_hit(t_data *data, t_win *win, t_probe *probe)
 {
 	float	x_to_check;
 	float	y_to_check;
 
 	x_to_check = 0;
 	y_to_check = 0;
-	// Increment x_step and y_step until we find a wall
-	while (h_probe->next_touch_x >= 0 && h_probe->next_touch_x <= win->wdth && h_probe->next_touch_y >= 0 && h_probe->next_touch_y <= win->hgt)
+	while (probe->next_touch_x >= 0 && probe->next_touch_x <= win->wdth
+		&& probe->next_touch_y >= 0 && probe->next_touch_y <= win->hgt)
 	{
-		x_to_check = h_probe->next_touch_x;
-		y_to_check = h_probe->next_touch_y - ((h_probe->orientation == NW || h_probe->orientation == NE) ? 1 : 0);
-
+		x_to_check = probe->next_touch_x;
+		y_to_check = probe->next_touch_y;
+		if (probe->orientation == NW || probe->orientation == NE)
+			y_to_check += -1;
 		if (check_collision(data, x_to_check, y_to_check) == SUCCESS)
 		{
-			h_probe->wall_hit_x = h_probe->next_touch_x;
-			h_probe->wall_hit_y = h_probe->next_touch_y;
-			// printf("horizontal_wall_hit_y = %f\n", h_probe->wall_hit_y);
-			h_probe->horizontal_wall_hit = 1;
-			h_probe->vertical_wall_hit = 0;
-			h_probe->grid_hit = HORIZONTAL;
-			break;
+			probe->wall_hit_x = probe->next_touch_x;
+			probe->wall_hit_y = probe->next_touch_y;
+			probe->horizontal_wall_hit = 1;
+			probe->vertical_wall_hit = 0;
+			probe->grid_hit = HORIZONTAL;
+			break ;
 		}
 		else
 		{
-			h_probe->next_touch_x += h_probe->x_step;
-			h_probe->next_touch_y += h_probe->y_step;
+			probe->next_touch_x += probe->x_step;
+			probe->next_touch_y += probe->y_step;
 		}
 	}
 }

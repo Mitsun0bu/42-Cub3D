@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:33:57 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:35:58 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/20 15:09:10 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void	get_rgb_code_int_tabs(t_config *config)
 
 static void	check_n_comma_in_str(char *str)
 {
-	int n_comma;
-	int i;
+	int	n_comma;
+	int	i;
 
 	n_comma = 0;
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
-		if(str[i] == ',')
+		if (str[i] == ',')
 			n_comma ++;
 	}
 	if (n_comma > 2)
@@ -64,7 +64,7 @@ static void	check_n_comma_in_str(char *str)
 
 static void	check_rgb_str_len(char **color_code_tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (color_code_tab[i])
@@ -75,7 +75,7 @@ static void	check_rgb_str_len(char **color_code_tab)
 
 static char	**clean_rgb_str(char **color_code_tab)
 {
-	int	 i;
+	int		i;
 	char	*buffer;
 
 	i = -1;
@@ -93,16 +93,17 @@ static char	**clean_rgb_str(char **color_code_tab)
 
 static int	*convert_str_tab_to_int_tab(char **src)
 {
-	int *dest;
-	int i = -1;
+	int	*dest;
+	int	i;
 
+	i = -1;
 	dest = malloc(sizeof(int) * 3);
 	if (!dest)
 		exit (0);
 	while (++i < 3)
 	{
 		dest[i] = ft_atoi(src[i]);
-		if (dest[i] < 0 || dest[i] > 255 )
+		if (dest[i] < 0 || dest[i] > 255)
 			exit_with_error_message(config_err, invalid);
 	}
 	return (dest);
