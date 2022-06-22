@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:23:36 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 15:38:05 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 13:48:43 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	move_up(t_data *data);
 void	move_down(t_data *data);
 void	move_left(t_data *data);
 void	move_right(t_data *data);
-void	update_player_position(t_data *data, double move_step);
+void	update_player_position(t_data *data, double move_step, int dir);
 
 /*	key_press/rotation.c	*/
 void	turn_left(t_player *player);

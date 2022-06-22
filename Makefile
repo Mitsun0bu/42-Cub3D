@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 17:19:42 by llethuil          #+#    #+#              #
-#    Updated: 2022/06/22 10:41:23 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/06/22 14:30:38 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ NAME		:=	cub3D
 
 CC			:=	gcc
 
-CFLAGS		:=	-Wall -Wextra -Werror -I mlx -O3
+CFLAGS		:=	-Wall -Wextra -Werror -I mlx
 
 RM			:=	rm -f
 

@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:25:28 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 12:00:12 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 14:31:14 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_player(t_player *player, t_config *config)
 	player->radius = 3;
 	init_player_dir(player, config);
 	player->move_speed = 8.0;
-	player->rotation_speed = 2 * (M_PI / 180);
+	player->rotation_speed = 4 * (M_PI / 180);
 	player->fov = 60 * (M_PI / 180);
 }
 
