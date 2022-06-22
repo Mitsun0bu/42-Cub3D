@@ -52,13 +52,13 @@ void	render_background(t_data *data);
 void	render_walls_and_tiles(t_data *data, int x, int y);
 void	render_player(t_data *data);
 
-/*	render_manager/render_utils.c											  */
+/*	render_manager/utils_render.c											  */
 int		render_rect(t_data *data, t_img *render, t_rect rect);
 int		render_line(t_data *data, t_img *render, t_line line);
 int		render_circle(t_data *data, t_img *render, t_circle circle);
 int		get_pixel_color_from_texture(t_tex *texture, t_coord *coord);
 
-/*	render_manager/texture_utils.c											  */
+/*	render_manager/utils_texture.c											  */
 t_tex	get_tex(t_data *data, int i);
 
 /*	render_manager/v_probe_manager.c										  */

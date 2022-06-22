@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 17:19:42 by llethuil          #+#    #+#              #
-#    Updated: 2022/06/22 18:01:29 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/06/22 18:24:54 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,14 +47,11 @@ OBJS_DIR	:=	.objs
 
 INCS_LST	:=	config_parser.h								\
 				header.h									\
-				init_img.h									\
-				init_player.h								\
-				init_ray_tab.h								\
+				initialization.h							\
 				key_press.h									\
 				main.h										\
 				render_manager.h							\
 				utils.h										\
-				window_manager.h							\
 
 SRCS_LST	:=	config_parser/check_map.c					\
 				config_parser/check_textures.c				\
@@ -69,9 +66,9 @@ SRCS_LST	:=	config_parser/check_map.c					\
 				config_parser/config_parser.c				\
 				config_parser/replace_spaces_in_map.c		\
 				config_parser/replace_spaces_in_str.c		\
-				init_img/init_img.c							\
-				init_player/init_player.c					\
-				init_ray_tab/init_ray_tab.c					\
+				initialization/init_img.c					\
+				initialization/init_player.c				\
+				initialization/init_ray_tab.c				\
 				key_press/key_press.c						\
 				key_press/movement.c						\
 				key_press/rotation.c						\
@@ -84,24 +81,21 @@ SRCS_LST	:=	config_parser/check_map.c					\
 				render_manager/render_game.c				\
 				render_manager/render_manager.c				\
 				render_manager/render_mini_map.c			\
-				render_manager/render_utils.c				\
-				render_manager/texture_utils.c				\
+				render_manager/utils_render.c				\
+				render_manager/utils_texture.c				\
 				render_manager/v_probe_manager.c			\
 				utils/calculate_distance.c					\
 				utils/check_collision.c						\
 				utils/normalize_angle.c						\
 				utils/pixel_put.c							\
-				window_manager/window_manager.c				\
+				utils/window_manager.c						\
 
 SUBDIRS_LST	:=	config_parser								\
-				init_img									\
-				init_player									\
-				init_ray_tab								\
+				initialization								\
 				key_press									\
 				main										\
 				render_manager								\
 				utils										\
-				window_manager								\
 
 OBJS_LST	:=	$(SRCS_LST:.c=.o)
 

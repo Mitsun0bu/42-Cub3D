@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:25:39 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 16:59:51 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 18:24:29 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,9 @@ double	normalize_angle(double angle);
 
 /*	utils/pixel_put.c														  */
 void	pixel_put(t_img *render, int x, int y, int color);
+
+/*	utils/window_manager.c													  */
+void	get_window(t_data *data);
+int		close_window(t_data *data);
 
 #endif

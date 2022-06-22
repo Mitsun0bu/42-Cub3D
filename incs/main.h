@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:24:23 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 16:59:20 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 18:24:39 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,11 @@
 /* ************************************************************************** */
 
 # include "header.h"
-# include "init_img.h"
-# include "init_player.h"
-# include "init_ray_tab.h"
+# include "initialization.h"
 # include "key_press.h"
 # include "render_manager.h"
 # include "config_parser.h"
 # include "utils.h"
-# include "window_manager.h"
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 
