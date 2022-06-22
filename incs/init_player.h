@@ -26,6 +26,6 @@
 /* ************************************************************************** */
 
 /*	init_player/init_player.c	*/
-void	init_player(t_data *data, t_player *player, t_config *config);
+void	init_player(t_player *player, t_config *config);
 
 #endif

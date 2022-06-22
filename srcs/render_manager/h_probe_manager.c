@@ -12,7 +12,7 @@
 
 #include "main.h"
 
-void	init_h_probe(t_map *map, t_player *player, double angle, t_probe *probe)
+void	init_h_probe(t_player *player, double angle, t_probe *probe)
 {
 	int	we_oriented;
 	int	ea_oriented;
@@ -22,14 +22,14 @@ void	init_h_probe(t_map *map, t_player *player, double angle, t_probe *probe)
 	probe->wall_hit_y = 0;
 	we_oriented = (probe->orientation == NW || probe->orientation == SW);
 	ea_oriented = (probe->orientation == NE || probe->orientation == SE);
-	probe->y_intcp = floor(player->y / map->cell_size) * map->cell_size;
+	probe->y_intcp = floor(player->y / CELL_SIZE) * CELL_SIZE;
 	if (probe->orientation == SW || probe->orientation == SE)
-		probe->y_intcp += map->cell_size;
+		probe->y_intcp += CELL_SIZE;
 	probe->x_intcp = player->x + (probe->y_intcp - player->y) / tan(angle);
-	probe->y_step = map->cell_size;
+	probe->y_step = CELL_SIZE;
 	if (probe->orientation == NW || probe->orientation == NE)
 		probe->y_step *= -1;
-	probe->x_step = map->cell_size / tan(angle);
+	probe->x_step = CELL_SIZE / tan(angle);
 	if (we_oriented && probe->x_step > 0)
 		probe->x_step *= -1;
 	if (ea_oriented && probe->x_step < 0)
@@ -40,15 +40,13 @@ void	init_h_probe(t_map *map, t_player *player, double angle, t_probe *probe)
 	probe->vertical_wall_hit = 0;
 }
 
-void	find_h_probe_wall_hit(t_data *data, t_win *win, t_probe *probe)
+void	find_h_probe_wall_hit(t_data *data, t_map *map, t_probe *probe)
 {
 	float	x_to_check;
 	float	y_to_check;
 
-	x_to_check = 0;
-	y_to_check = 0;
-	while (probe->next_touch_x >= 0 && probe->next_touch_x <= win->wdth
-		&& probe->next_touch_y >= 0 && probe->next_touch_y <= win->hgt)
+	while (probe->next_touch_x >= 0 && probe->next_touch_x <= map->wdth * CELL_SIZE
+		&& probe->next_touch_y >= 0 && probe->next_touch_y <= map->hgt * CELL_SIZE)
 	{
 		x_to_check = probe->next_touch_x;
 		y_to_check = probe->next_touch_y;

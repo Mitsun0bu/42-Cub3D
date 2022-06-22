@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:33:14 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 11:59:57 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 12:04:26 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,11 @@
 
 #include "main.h"
 
-static void	get_window (t_data *data);
-
-void	window_manager(t_data *data)
-{
-	data->win.wdth = data->map.wdth * data->map.cell_size;
-	data->win.hgt = data->map.hgt * data->map.cell_size;
-	// data->win.wdth = 960;
-	// data->win.hgt = 640;
-	get_window(data);
-	mlx_hook(data->win.edge, 17, 0, close_window, data);
-}
-
-static void	get_window (t_data *data)
+void	get_window(t_data *data)
 {
 	data->win.mlx = mlx_init();
-	data->win.edge = mlx_new_window(data->win.mlx,
-			data->win.wdth, data->win.hgt, "CUB3D");
+	data->win.edge = mlx_new_window(data->win.mlx, WIN_WDTH, WIN_HGT, "CUB3D");
+	mlx_hook(data->win.edge, 17, 0, close_window, data);
 }
 
 int	close_window(t_data *data)

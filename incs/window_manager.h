@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:25:57 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:26:14 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 12:05:24 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /* ************************************************************************** */
 
 /*	window_manager/window_manager.c	*/
-void	window_manager(t_data *data);
+void	get_window(t_data *data);
 int		close_window(t_data *data);
 
 #endif

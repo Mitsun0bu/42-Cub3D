@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:33:20 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/16 10:03:33 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 10:15:33 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	pixel_put(t_img *render, int x, int y, int color)
 
 	offset = (y * render->line_len + x * (render->bpp / 8));
 	dst = render->addr + offset;
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }

@@ -6,13 +6,13 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:46:10 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 16:08:44 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 10:12:32 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-double calculate_distance(double x1, double y1, double x2, double y2)
+double	calculate_distance(double x1, double y1, double x2, double y2)
 {
 	double	distance;
 

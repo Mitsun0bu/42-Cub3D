@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_manager.c                                      :+:      :+:    :+:   */
+/*   render_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 17:36:07 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/07 09:48:15 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/06/22 09:54:09 by llethuil          #+#    #+#             */
+/*   Updated: 2022/06/22 12:13:28 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 
 #include "main.h"
 
-void	render_manager(t_data *data)
+void	render_manager(t_data *data, t_win *win)
 {
 	ray_casting(data);
 	render_game(data, &data->player, data->ray_tab);
 	render_mini_map(data);
-	mlx_put_image_to_window(data->win.mlx, data->win.edge, data->walls.ptr, 0, 0);
+	mlx_put_image_to_window(win->mlx, win->edge, data->walls.ptr, 0, 0);
 }

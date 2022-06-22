@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:21:24 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 15:21:28 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 11:57:00 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_img(t_data *data, t_config *config, t_img *mini_map, t_img *walls)
 	mini_map->ptr = mlx_new_image(data->win.mlx, 1920, 1080);
 	mini_map->addr = mlx_get_data_addr(mini_map->ptr,
 			&mini_map->bpp, &mini_map->line_len, &mini_map->endian);
-	walls->ptr = mlx_new_image(data->win.mlx, data->win.wdth, data->win.hgt);
+	walls->ptr = mlx_new_image(data->win.mlx, WIN_WDTH, WIN_HGT);
 	walls->addr = mlx_get_data_addr(walls->ptr,
 			&walls->bpp, &walls->line_len, &walls->endian);
 	data->ea_tex.tex = mlx_xpm_file_to_image(data->win.mlx,

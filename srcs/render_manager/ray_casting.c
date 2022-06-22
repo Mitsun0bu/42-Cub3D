@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:23:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 18:50:04 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 10:21:02 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ray_casting(t_data *data)
 		data->ray_tab[column_i].line.x_end = data->ray_tab[column_i].wall_hit_x;
 		data->ray_tab[column_i].line.y_end = data->ray_tab[column_i].wall_hit_y;
 		data->ray_tab[column_i].line.color = RED;
-		// render_line(data, &data->mini_map, data->ray_tab[column_i].line);
 		ray_angle += data->player.fov / data->n_rays;
 	}
 }

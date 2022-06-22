@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:45:45 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 15:21:52 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 12:00:38 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*	init_player/init_player.c	*/
+/*	init_img/init_img.c	*/
 void	init_img(t_data *data, t_config *config, t_img *mini_map, t_img *walls);
 
 #endif

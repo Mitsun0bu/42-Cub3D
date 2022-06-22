@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 18:51:28 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 11:57:59 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,12 @@ enum e_grid {
 	VERTICAL
 };
 
+enum e_dimensions {
+	WIN_WDTH = 1024,
+	WIN_HGT = 960,
+	CELL_SIZE = 64
+};
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                              ~~~ PROTOTYPES ~~~                            */
@@ -135,7 +141,6 @@ typedef struct map
 	char	**tab;
 	int		hgt;
 	int		wdth;
-	int		cell_size;
 } t_map;
 
 typedef struct s_win
@@ -143,8 +148,6 @@ typedef struct s_win
 	void	*mlx;
 	void	*edge;
 	void	*img_ptr;
-	int		wdth;
-	int		hgt;
 	int		x;
 	int		y;
 }	t_win;

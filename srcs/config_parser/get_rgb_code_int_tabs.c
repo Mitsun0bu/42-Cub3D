@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:33:57 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 15:09:10 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 09:47:38 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 static void	check_n_comma_in_str(char *str);
 static void	check_rgb_str_len(char **color_code_tab);
 static char	**clean_rgb_str(char **color_code_tab);
-static int	*convert_str_tab_to_int_tab(char **src);
+static int	*conv_str_tab_to_int_tab(char **src);
 
 void	get_rgb_code_int_tabs(t_config *config)
 {
@@ -40,8 +40,8 @@ void	get_rgb_code_int_tabs(t_config *config)
 	check_rgb_str_len(ceiling_rgb_str_tab);
 	floor_rgb_str_tab = clean_rgb_str(floor_rgb_str_tab);
 	ceiling_rgb_str_tab = clean_rgb_str(ceiling_rgb_str_tab);
-	config->floor_rgb_int_tab = convert_str_tab_to_int_tab(floor_rgb_str_tab);
-	config->ceiling_rgb_int_tab = convert_str_tab_to_int_tab(ceiling_rgb_str_tab);
+	config->floor_rgb_int_tab = conv_str_tab_to_int_tab(floor_rgb_str_tab);
+	config->ceiling_rgb_int_tab = conv_str_tab_to_int_tab(ceiling_rgb_str_tab);
 	ft_free_char_tab(floor_rgb_str_tab);
 	ft_free_char_tab(ceiling_rgb_str_tab);
 }
@@ -91,7 +91,7 @@ static char	**clean_rgb_str(char **color_code_tab)
 	return (color_code_tab);
 }
 
-static int	*convert_str_tab_to_int_tab(char **src)
+static int	*conv_str_tab_to_int_tab(char **src)
 {
 	int	*dest;
 	int	i;

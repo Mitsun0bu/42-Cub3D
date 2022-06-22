@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:47:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/17 09:31:47 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 10:06:00 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	render_line(t_data *data, t_img *render, t_line line)
 	n_pixels = sqrt((dx * dx) + (dy * dy));
 	dx /= n_pixels;
 	dy /= n_pixels;
-
 	x = line.x_start;
 	y = line.y_start;
 	while (n_pixels)
@@ -61,7 +60,7 @@ int	render_line(t_data *data, t_img *render, t_line line)
 	return (0);
 }
 
-int render_circle(t_data *data, t_img *render, t_circle circle)
+int	render_circle(t_data *data, t_img *render, t_circle circle)
 {
 	double	i;
 	double	angle;
@@ -72,19 +71,21 @@ int render_circle(t_data *data, t_img *render, t_circle circle)
 		return (1);
 	i = 0;
 	while (i < 360)
-    {
-        angle = i;
-        x = circle.radius * cos(angle * M_PI / 180);
-        y = circle.radius * sin(angle * M_PI / 180);
-        pixel_put(render, circle.x + x, circle.y + y, circle.color);
+	{
+		angle = i;
+		x = circle.radius * cos(angle * M_PI / 180);
+		y = circle.radius * sin(angle * M_PI / 180);
+		pixel_put(render, circle.x + x, circle.y + y, circle.color);
 		i += 0.1;
-    }
+	}
 	return (0);
 }
 
 int	get_pixel_color_from_texture(t_texture *texture, t_coord *coord)
 {
-	if (coord->x >= 0 && coord->x < texture->wdth && coord->y >= 0 && coord->y < texture->hgt)
-		return (*(int*)(texture->ptr + (4 * texture->wdth * (int)coord->y) + (4 * (int)coord->x)));
+	if (coord->x >= 0 && coord->x < texture->wdth
+		&& coord->y >= 0 && coord->y < texture->hgt)
+		return (*(int *)(texture->ptr
+			+ (4 * texture->wdth * (int)coord->y) + (4 * (int)coord->x)));
 	return (0xFFE436);
 }

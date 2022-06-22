@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 18:50:04 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 09:51:37 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	key_press(int key, t_data *data)
 	if (key == right_arrow)
 		turn_right(&data->player);
 	change_player_orientation(data, &data->player);
-	render_manager(data);
+	render_manager(data, &data->win);
 	return (0);
 }
 

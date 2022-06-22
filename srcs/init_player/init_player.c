@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:25:28 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 18:50:04 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 12:00:12 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 static void	init_player_dir(t_player *player, t_config *config);
 
-void	init_player(t_data *data, t_player *player, t_config *config)
+void	init_player(t_player *player, t_config *config)
 {
-	player->x = (player->x * data->map.cell_size) + (data->map.cell_size / 2);
-	player->y = player->y * data->map.cell_size + (data->map.cell_size / 2);
+	player->x = (player->x * CELL_SIZE) + (CELL_SIZE / 2);
+	player->y = player->y * CELL_SIZE + (CELL_SIZE / 2);
 	player->radius = 3;
 	init_player_dir(player, config);
 	player->move_speed = 8.0;
