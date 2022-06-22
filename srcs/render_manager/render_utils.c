@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 15:47:09 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 10:06:00 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 16:57:14 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	render_circle(t_data *data, t_img *render, t_circle circle)
 	return (0);
 }
 
-int	get_pixel_color_from_texture(t_texture *texture, t_coord *coord)
+int	get_pixel_color_from_texture(t_tex *texture, t_coord *coord)
 {
 	if (coord->x >= 0 && coord->x < texture->wdth
 		&& coord->y >= 0 && coord->y < texture->hgt)

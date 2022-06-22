@@ -6,18 +6,18 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:26:11 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 10:21:25 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 16:57:14 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-static t_texture	get_north_texture(t_data *data, int i);
-static t_texture	get_south_texture(t_data *data, int i);
-static t_texture	get_east_texture(t_data *data, int i);
-static t_texture	get_west_texture(t_data *data, int i);
+static t_tex	get_north_texture(t_data *data, int i);
+static t_tex	get_south_texture(t_data *data, int i);
+static t_tex	get_east_tex(t_data *data, int i);
+static t_tex	get_west_tex(t_data *data, int i);
 
-t_texture	get_texture(t_data *data, int i)
+t_tex	get_tex(t_data *data, int i)
 {
 	if (data->player.orientation == 'N')
 	{
@@ -29,16 +29,16 @@ t_texture	get_texture(t_data *data, int i)
 	}
 	else if (data->player.orientation == 'E')
 	{
-		return (get_east_texture(data, i));
+		return (get_east_tex(data, i));
 	}
 	else if (data->player.orientation == 'W')
 	{
-		return (get_west_texture(data, i));
+		return (get_west_tex(data, i));
 	}
 	return (data->so_tex);
 }
 
-static t_texture	get_north_texture(t_data *data, int i)
+static t_tex	get_north_texture(t_data *data, int i)
 {
 	if (data->ray_tab[i].grid_hit == HORIZONTAL)
 		return (data->so_tex);
@@ -51,7 +51,7 @@ static t_texture	get_north_texture(t_data *data, int i)
 	}
 }
 
-static t_texture	get_south_texture(t_data *data, int i)
+static t_tex	get_south_texture(t_data *data, int i)
 {
 	if (data->ray_tab[i].grid_hit == HORIZONTAL)
 		return (data->no_tex);
@@ -64,7 +64,7 @@ static t_texture	get_south_texture(t_data *data, int i)
 	}
 }
 
-static t_texture	get_east_texture(t_data *data, int i)
+static t_tex	get_east_tex(t_data *data, int i)
 {
 	if (data->ray_tab[i].grid_hit == VERTICAL)
 		return (data->we_tex);
@@ -77,7 +77,7 @@ static t_texture	get_east_texture(t_data *data, int i)
 	}
 }
 
-static t_texture	get_west_texture(t_data *data, int i)
+static t_tex	get_west_tex(t_data *data, int i)
 {
 	if (data->ray_tab[i].grid_hit == VERTICAL)
 		return (data->ea_tex);

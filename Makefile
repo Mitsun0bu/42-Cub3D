@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 17:19:42 by llethuil          #+#    #+#              #
-#    Updated: 2022/06/22 14:30:38 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/06/22 18:01:29 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ INCS_LST	:=	config_parser.h								\
 				header.h									\
 				init_img.h									\
 				init_player.h								\
-				init_ray.h									\
+				init_ray_tab.h								\
 				key_press.h									\
 				main.h										\
 				render_manager.h							\
@@ -57,7 +57,7 @@ INCS_LST	:=	config_parser.h								\
 				window_manager.h							\
 
 SRCS_LST	:=	config_parser/check_map.c					\
-				config_parser/check_texture_paths.c			\
+				config_parser/check_textures.c				\
 				config_parser/close_file.c					\
 				config_parser/convert_rgb_codes_to_hex.c	\
 				config_parser/exit_with_error_message.c		\
@@ -71,10 +71,11 @@ SRCS_LST	:=	config_parser/check_map.c					\
 				config_parser/replace_spaces_in_str.c		\
 				init_img/init_img.c							\
 				init_player/init_player.c					\
-				init_ray/init_ray.c							\
+				init_ray_tab/init_ray_tab.c					\
 				key_press/key_press.c						\
 				key_press/movement.c						\
 				key_press/rotation.c						\
+				key_press/utils_movement.c					\
 				main/main.c									\
 				render_manager/dda_algorithm_utils.c		\
 				render_manager/dda_algorithm.c				\
@@ -95,7 +96,7 @@ SRCS_LST	:=	config_parser/check_map.c					\
 SUBDIRS_LST	:=	config_parser								\
 				init_img									\
 				init_player									\
-				init_ray									\
+				init_ray_tab								\
 				key_press									\
 				main										\
 				render_manager								\

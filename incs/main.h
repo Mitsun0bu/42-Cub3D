@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:24:23 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 15:22:14 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 16:59:20 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include "header.h"
 # include "init_img.h"
 # include "init_player.h"
-# include "init_ray.h"
+# include "init_ray_tab.h"
 # include "key_press.h"
 # include "render_manager.h"
 # include "config_parser.h"
@@ -49,7 +49,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* main/main.c */
+/* main/main.c 																  */
 int		main(int ac, char **av);
 void	render_world(t_data *data, t_config *config, t_win *win);
 

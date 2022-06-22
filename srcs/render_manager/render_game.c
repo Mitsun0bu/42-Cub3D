@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:22:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 11:59:21 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 18:11:12 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	render_floor(t_data *data, int i, double wall_base)
 
 static void	render_wall(t_data *data, double wall_base, double wall_hgt, int i)
 {
-	t_texture	texture;
+	t_tex		texture;
 	t_coord		texture_coord;
 	int			color;
 	int			i_pixel;
@@ -74,7 +74,7 @@ static void	render_wall(t_data *data, double wall_base, double wall_hgt, int i)
 				+ (int)data->ray_tab[i].wall_hit_y) % CELL_SIZE);
 	texture_coord.y = CELL_SIZE;
 	texture_step = CELL_SIZE / wall_hgt;
-	texture = get_texture(data, i);
+	texture = get_tex(data, i);
 	i_pixel = 0;
 	while (i_pixel++ < wall_hgt)
 	{

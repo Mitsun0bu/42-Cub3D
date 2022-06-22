@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 11:57:59 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 17:52:54 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ enum e_grid {
 };
 
 enum e_dimensions {
-	WIN_WDTH = 1024,
+	WIN_WDTH = 1720,
 	WIN_HGT = 960,
 	CELL_SIZE = 64
 };
@@ -141,7 +141,7 @@ typedef struct map
 	char	**tab;
 	int		hgt;
 	int		wdth;
-} t_map;
+}	t_map;
 
 typedef struct s_win
 {
@@ -167,7 +167,7 @@ typedef struct s_coord
 	double	y;
 }	t_coord;
 
-typedef struct s_texture
+typedef struct s_tex
 {
 	char	*path;
 	void	*tex;
@@ -177,7 +177,7 @@ typedef struct s_texture
 	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_texture;
+}	t_tex;
 
 typedef struct s_rect
 {
@@ -194,7 +194,7 @@ typedef struct s_line
 	double	y_start;
 	double	x_end;
 	double	y_end;
-	int	color;
+	int		color;
 }	t_line;
 
 typedef struct s_circle
@@ -212,7 +212,7 @@ typedef struct s_player
 	int		radius;
 	char	orientation;
 	int		turn_direction;
-	int		walk_direction;
+	int		walk_dir;
 	double	rot_angle;
 	double	move_speed;
 	double	rotation_speed;
@@ -242,8 +242,8 @@ typedef struct s_probe
 	double	y_step;
 	double	wall_hit_x;
 	double	wall_hit_y;
-	double	next_touch_x;
-	double	next_touch_y;
+	double	next_hit_x;
+	double	next_hit_y;
 	int		horizontal_wall_hit;
 	int		vertical_wall_hit;
 	int		grid_hit;
@@ -264,10 +264,10 @@ typedef struct s_data
 	t_img		mini_map;
 	t_img		walls;
 
-	t_texture	ea_tex;
-	t_texture	no_tex;
-	t_texture	so_tex;
-	t_texture	we_tex;
+	t_tex		ea_tex;
+	t_tex		no_tex;
+	t_tex		so_tex;
+	t_tex		we_tex;
 }	t_data;
 
 #endif

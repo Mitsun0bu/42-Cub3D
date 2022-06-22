@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:25:28 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 14:31:14 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 16:02:00 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static void	init_player_dir(t_player *player, t_config *config)
 {
 	if (config->player_orientation == 'N')
 	{
-		player->walk_direction = 1;
+		player->walk_dir = 1;
 		player->rot_angle = (3 * M_PI) / 2;
 	}
 	else if (config->player_orientation == 'S')
 	{
-		player->walk_direction = -1;
+		player->walk_dir = -1;
 		player->rot_angle = M_PI / 2;
 	}
 	else if (config->player_orientation == 'W')

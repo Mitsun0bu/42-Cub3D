@@ -448,7 +448,7 @@ int get_mouse_button(NSEventType eventtype)
   //      printf("err? 0x%x\n", glGetError());
 
   glUseProgram(glsl.font_program);
-  glsl.loc_font_texture = glGetUniformLocation(glsl.font_program, "texture");
+  glsl.loc_font_tex = glGetUniformLocation(glsl.font_program, "texture");
   glsl.loc_font_color = glGetUniformLocation(glsl.font_program, "color");
   glsl.loc_font_posinwin = glGetUniformLocation(glsl.font_program, "fontposinwin");
   glsl.loc_font_posinatlas = glGetUniformLocation(glsl.font_program, "fontposinatlas");
@@ -588,7 +588,7 @@ int get_mouse_button(NSEventType eventtype)
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, imgctx->texture);
-  glUniform1i(glsl.loc_font_texture, 0);
+  glUniform1i(glsl.loc_font_tex, 0);
   glUniform4fv(glsl.loc_font_color, 1, color_tab);
 
   glUniform2f(glsl.loc_font_winhalfsize, size_x/2, size_y/2);
@@ -620,7 +620,7 @@ int get_mouse_button(NSEventType eventtype)
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, pixel_vbuffer);
   glUniform1i(glsl.loc_pixel_texture, 0);
-  
+
   glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
   glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), (void*)0);
   glEnableVertexAttribArray(0);
@@ -636,14 +636,14 @@ int get_mouse_button(NSEventType eventtype)
   while (pixel_nb--) pixtexbuff[pixel_nb] = 0xFF000000;
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, size_x, size_y, 0, GL_BGRA, GL_UNSIGNED_BYTE, pixtexbuff);
   pixel_nb = 0;
-  
+
 }
 
 @end
 
 
 // mlx API
- 
+
 
 void *mlx_new_window(mlx_ptr_t *mlx_ptr, int size_x, int size_y, char *title)
 {

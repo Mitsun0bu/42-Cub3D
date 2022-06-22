@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:33:26 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/14 10:48:27 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 18:00:53 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	config_parser(int ac, char **av, t_data *data)
 	replace_spaces_in_map(&data->map);
 	check_map(data);
 	parse_config_lines(&data->config);
-	check_texture_paths(&data->config);
+	check_textures(&data->config);
 	get_rgb_code_int_tabs(&data->config);
 	convert_rgb_codes_to_hex(&data->config);
 }

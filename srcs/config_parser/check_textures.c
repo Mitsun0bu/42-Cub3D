@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_texture_paths.c                              :+:      :+:    :+:   */
+/*   check_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 17:34:20 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:35:58 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/06/22 18:01:36 by llethuil          #+#    #+#             */
+/*   Updated: 2022/06/22 18:01:40 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,29 @@
 
 #include "main.h"
 
-static void	check_texture_extension(char *str);
+static void	check_a_texture(char *str);
 
-void	check_texture_paths(t_config *config)
+void	check_textures(t_config *config)
 {
-	check_texture_extension(config->no_texture_path);
-	check_texture_extension(config->so_texture_path);
-	check_texture_extension(config->we_texture_path);
-	check_texture_extension(config->ea_texture_path);
+	check_a_texture(config->no_texture_path);
+	check_a_texture(config->so_texture_path);
+	check_a_texture(config->we_texture_path);
+	check_a_texture(config->ea_texture_path);
 }
 
-static void	check_texture_extension(char *str)
+static void	check_a_texture(char *str)
 {
+	int	fd;
 	int	i_extension;
 
 	i_extension = ft_strlen(str) - 4;
 	if (ft_strnstr(str + i_extension, ".xpm", 4) == NULL)
 		exit_with_error_message(config_err, extension);
+	fd = open(str, O_DIRECTORY);
+	if (fd != -1)
+		exit_with_error_message(config_err, dir);
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		exit_with_error_message(config_err, fail);
+	close(fd);
 }

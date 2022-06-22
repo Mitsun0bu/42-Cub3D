@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:33:29 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 15:17:41 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 16:27:57 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	check_collision(t_data *data, double x, double y)
 
 	map_x = floor(x / CELL_SIZE);
 	map_y = floor(y / CELL_SIZE);
-	// if (map_x > data->map.wdth)
-	// 	map_x = data->map.wdth;
 	if (map_y > data->map.hgt)
 		map_y = data->map.hgt;
 	x_max = (int)ft_strlen(data->map.tab[map_y]);

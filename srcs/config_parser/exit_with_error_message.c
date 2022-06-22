@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:34:03 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/20 15:06:17 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 17:58:36 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,15 @@ static void	print_config_err_message(int err_no)
 		printf("Invalid specification(s) in map file !\n");
 	else if (err_no == extension)
 		printf("Format of texture files must be '.xpm'\n");
+	else if (err_no == dir)
+		printf("Texture should be a file, not a directory !");
+	else if (err_no == fail)
+		printf("Texture loading failed!\n");
 	printf("Usage :\n");
 	printf("NO\t./<path_to_the_north_texture>.xpm\n");
 	printf("SO\t./<path_to_the_south_texture>.xpm\n");
-	printf("WE\t./<path_to_the_west_texture>.xpm\n");
-	printf("EA\t./<path_to_the_east_texture>.xpm\n");
+	printf("WE\t./<path_to_the_west_tex>.xpm\n");
+	printf("EA\t./<path_to_the_east_tex>.xpm\n");
 	printf("F\tR,G,B\nC\tR,G,B\n");
 	printf("(where R, G and B are integers between 0 and 255)\n");
 }
