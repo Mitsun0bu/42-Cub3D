@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:22:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 18:11:12 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 11:29:56 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	render_ceiling(t_data *data, int i, double wall_base)
 	ceiling.hgt = wall_base;
 	ceiling.color = data->config.ceiling_hex_code;
 	if (ceiling.hgt >= 0 && ceiling.hgt <= WIN_HGT)
-		render_rect(data, &data->walls, ceiling);
+		render_rect(data, &data->game, ceiling);
 }
 
 static void	render_floor(t_data *data, int i, double wall_base)
@@ -59,7 +59,7 @@ static void	render_floor(t_data *data, int i, double wall_base)
 	floor.hgt = WIN_HGT - wall_base;
 	floor.color = data->config.floor_hex_code;
 	if (floor.hgt >= 0 && floor.hgt <= WIN_HGT)
-		render_rect(data, &data->walls, floor);
+		render_rect(data, &data->game, floor);
 }
 
 static void	render_wall(t_data *data, double wall_base, double wall_hgt, int i)
@@ -83,6 +83,6 @@ static void	render_wall(t_data *data, double wall_base, double wall_hgt, int i)
 			texture_coord.y = 0;
 		color = get_pixel_color_from_texture(&texture, &texture_coord);
 		if (wall_base - i_pixel >= 0 && wall_base - i_pixel < WIN_HGT)
-			pixel_put(&data->walls, i, wall_base - i_pixel, color);
+			pixel_put(&data->game, i, wall_base - i_pixel, color);
 	}
 }

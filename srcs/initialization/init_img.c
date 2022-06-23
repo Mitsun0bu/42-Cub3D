@@ -6,20 +6,20 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 15:21:24 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 11:57:00 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 11:29:41 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	init_img(t_data *data, t_config *config, t_img *mini_map, t_img *walls)
+void	init_img(t_data *data, t_config *config, t_img *mini_map, t_img *game)
 {
 	mini_map->ptr = mlx_new_image(data->win.mlx, 1920, 1080);
 	mini_map->addr = mlx_get_data_addr(mini_map->ptr,
 			&mini_map->bpp, &mini_map->line_len, &mini_map->endian);
-	walls->ptr = mlx_new_image(data->win.mlx, WIN_WDTH, WIN_HGT);
-	walls->addr = mlx_get_data_addr(walls->ptr,
-			&walls->bpp, &walls->line_len, &walls->endian);
+	game->ptr = mlx_new_image(data->win.mlx, WIN_WDTH, WIN_HGT);
+	game->addr = mlx_get_data_addr(game->ptr,
+			&game->bpp, &game->line_len, &game->endian);
 	data->ea_tex.tex = mlx_xpm_file_to_image(data->win.mlx,
 			config->ea_texture_path, &data->ea_tex.wdth, &data->ea_tex.hgt);
 	data->ea_tex.ptr = mlx_get_data_addr(data->ea_tex.tex,

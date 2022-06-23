@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 18:13:45 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 18:13:49 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 11:37:40 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,6 @@ int	render_line(t_data *data, t_img *render, t_line line)
 		x += dx;
 		y += dy;
 		n_pixels--;
-	}
-	return (0);
-}
-
-int	render_circle(t_data *data, t_img *render, t_circle circle)
-{
-	double	i;
-	double	angle;
-	double	x;
-	double	y;
-
-	if (data->win.edge == NULL)
-		return (1);
-	i = 0;
-	while (i < 360)
-	{
-		angle = i;
-		x = circle.radius * cos(angle * M_PI / 180);
-		y = circle.radius * sin(angle * M_PI / 180);
-		pixel_put(render, circle.x + x, circle.y + y, circle.color);
-		i += 0.1;
 	}
 	return (0);
 }

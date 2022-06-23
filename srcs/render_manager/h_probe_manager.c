@@ -42,8 +42,8 @@ void	init_h_probe(t_player *player, double angle, t_probe *probe)
 
 void	find_h_probe_wall_hit(t_data *data, t_map *map, t_probe *probe)
 {
-	float	x_to_check;
-	float	y_to_check;
+	double	x_to_check;
+	double	y_to_check;
 
 	while (probe->next_hit_x >= 0 && probe->next_hit_x <= map->wdth * CELL_SIZE
 		&& probe->next_hit_y >= 0 && probe->next_hit_y <= map->hgt * CELL_SIZE)

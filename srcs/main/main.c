@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 12:04:39 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 15:12:07 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 	ft_memset(&data, 0, sizeof(data));
 	config_parser(ac, av, &data);
 	get_window(&data);
-	init_img(&data, &data.config, &data.mini_map, &data.walls);
+	init_img(&data, &data.config, &data.mini_map.img, &data.game);
 	init_player(&data.player, &data.config);
 	init_ray_tab(&data);
 	render_manager(&data, &data.win);

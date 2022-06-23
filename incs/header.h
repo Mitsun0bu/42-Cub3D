@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 17:52:54 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/23 14:22:31 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,10 @@ enum e_grid {
 enum e_dimensions {
 	WIN_WDTH = 1720,
 	WIN_HGT = 960,
-	CELL_SIZE = 64
+	CELL_SIZE = 64,
+	MM_WDTH = 40,
+	MM_HGT = 20,
+	MM_CELL_SIZE = 10
 };
 
 /* ************************************************************************** */
@@ -121,36 +124,11 @@ enum e_dimensions {
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_config
+typedef struct s_coord
 {
-	char	*no_texture_path;
-	char	*so_texture_path;
-	char	*we_texture_path;
-	char	*ea_texture_path;
-	char	*floor_rgb_str;
-	char	*ceiling_rgb_str;
-	int		*floor_rgb_int_tab;
-	int		*ceiling_rgb_int_tab;
-	int		floor_hex_code;
-	int		ceiling_hex_code;
-	char	player_orientation;
-}	t_config;
-
-typedef struct map
-{
-	char	**tab;
-	int		hgt;
-	int		wdth;
-}	t_map;
-
-typedef struct s_win
-{
-	void	*mlx;
-	void	*edge;
-	void	*img_ptr;
-	int		x;
-	int		y;
-}	t_win;
+	double	x;
+	double	y;
+}	t_coord;
 
 typedef struct s_img
 {
@@ -160,12 +138,6 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
-
-typedef struct s_coord
-{
-	double	x;
-	double	y;
-}	t_coord;
 
 typedef struct s_tex
 {
@@ -197,13 +169,36 @@ typedef struct s_line
 	int		color;
 }	t_line;
 
-typedef struct s_circle
+typedef struct s_config
 {
-	int	x;
-	int	y;
-	int	radius;
-	int	color;
-}	t_circle;
+	char	*no_texture_path;
+	char	*so_texture_path;
+	char	*we_texture_path;
+	char	*ea_texture_path;
+	char	*floor_rgb_str;
+	char	*ceiling_rgb_str;
+	int		*floor_rgb_int_tab;
+	int		*ceiling_rgb_int_tab;
+	int		floor_hex_code;
+	int		ceiling_hex_code;
+	char	player_orientation;
+}	t_config;
+
+typedef struct s_map
+{
+	char	**tab;
+	int		hgt;
+	int		wdth;
+}	t_map;
+
+typedef struct s_win
+{
+	void	*mlx;
+	void	*edge;
+	void	*img_ptr;
+	int		x;
+	int		y;
+}	t_win;
 
 typedef struct s_player
 {
@@ -218,6 +213,14 @@ typedef struct s_player
 	double	rotation_speed;
 	double	fov;
 }	t_player;
+
+typedef struct s_mini_map
+{
+	t_coord		cam;
+	double		x;
+	double		y;
+	t_img		img;
+}	t_mini_map;
 
 typedef struct s_ray
 {
@@ -256,14 +259,11 @@ typedef struct s_data
 	t_map		map;
 	t_win		win;
 	t_player	player;
-
+	t_mini_map	mini_map;
 	int			n_rays;
 	int			wall_strip_wdth;
 	t_ray		*ray_tab;
-
-	t_img		mini_map;
-	t_img		walls;
-
+	t_img		game;
 	t_tex		ea_tex;
 	t_tex		no_tex;
 	t_tex		so_tex;
