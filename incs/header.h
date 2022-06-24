@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/24 11:39:23 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/24 15:55:27 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,10 @@ typedef struct s_cam
 
 typedef struct s_mini_map
 {
-	t_cam		cam;
+	int			x;
+	int			y;
+	int			x_max;
+	int			y_max;
 	t_rect		tile;
 	t_rect		wall;
 	t_rect		player;

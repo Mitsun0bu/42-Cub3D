@@ -6,129 +6,151 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:35:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/24 11:59:44 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/24 16:09:20 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-static void	get_player_config(t_player *player, t_mini_map *mini_map);
-static void	set_tile_and_walls_specs(t_mini_map *mini_map);
-static void	render_wall(t_data *data, t_map *map, int x, int y);
-static void	cam_init(t_map *map, t_player *player, t_mini_map *mini_map);
-
-// void	render_mini_map(t_data *data)
-// {
-// 	int		x;
-// 	int		y;
-// 	t_rect	tile;
-
-// 	tile.wdth = 4;
-// 	tile.hgt = 4;
-// 	tile.color = WHITE;
-// 	y = -1;
-// 	while (++y < data->map.hgt)
-// 	{
-// 		x = -1;
-// 		while (++x < (int)ft_strlen(data->map.tab[y]))
-// 		{
-// 			tile.x = (x * 7) + 10;
-// 			tile.y = (y * 7) + 10;
-// 			if (data->map.tab[y][x] != '1')
-// 				render_rect(data, &data->game, tile);
-// 			else
-// 				render_wall(data, &data->map, x, y);
-// 		}
-// 	}
-// 	render_player(data);
-// }
-
-// static void	render_wall(t_data *data, t_map *map, int x, int y)
-// {
-// 	t_rect	wall;
-
-// 	wall.x = (x * 7) + 10;
-// 	wall.y = (y * 7) + 10;
-// 	wall.wdth = 4;
-// 	wall.hgt = 4;
-// 	wall.color = BLACK;
-// 	if (x > 0 && map->tab[y][x - 1] != '1')
-// 		render_rect(data, &data->game, wall);
-// 	if (x < (int)ft_strlen(map->tab[y]) && map->tab[y][x + 1] != '1')
-// 		if (map->tab[y][x + 1] != '1' && map->tab[y][x + 1] != 0)
-// 			render_rect(data, &data->game, wall);
-// 	if (y > 0 && (int)ft_strlen(map->tab[y - 1]) >= (int)ft_strlen(map->tab[y]))
-// 		if (map->tab[y - 1][x] != '1')
-// 			render_rect(data, &data->game, wall);
-// 	if (y < map->hgt && (int)ft_strlen(map->tab[y + 1]) >= x + 1)
-// 		if (map->tab[y + 1][x] != '1')
-// 			render_rect(data, &data->game, wall);
-// }
-
-// static void	render_player(t_data *data)
-// {
-// 	double	x;
-// 	double	y;
-
-// 	x = ((data->player.x / CELL_SIZE) * 7) + 8;
-// 	y = ((data->player.y / CELL_SIZE) * 7) + 8;
-// 	render_rect(data, &data->game, (t_rect){x, y, 4, 4, RED});
-// }
+static void	set_player_param(t_mini_map *mini_map);
+static void	set_tile_and_walls_param(t_mini_map *mini_map);
 
 void	render_mini_map(t_data *data)
 {
-	int		x;
-	int		y;
-
-	get_player_config(&data->player, &data->mini_map);
-	set_tile_and_walls_specs(&data->mini_map);
-	cam_init(&data->map, &data->player, &data->mini_map);
-	y = data->mini_map.cam.y;
-	while (y < MM_HGT / MM_CELL_SIZE)
+	set_player_param(&data->mini_map);
+	set_tile_and_walls_param(&data->mini_map);
+	data->mini_map.y_max = MM_HGT / MM_CELL_SIZE;
+	data->mini_map.x_max = MM_WDTH / MM_CELL_SIZE;
+	data->mini_map.y = 0;
+	while (data->mini_map.y < data->mini_map.y_max)
 	{
-		x = data->mini_map.cam.x;
-		while (x < MM_WDTH / MM_CELL_SIZE)
+		data->mini_map.x = 0;
+		while (data->mini_map.x < data->mini_map.x_max)
 		{
-			data->mini_map.tile.x = (x * MM_CELL_SIZE) + 10;
-			data->mini_map.tile.y = (y * MM_CELL_SIZE) + 10;
-			if (data->map.tab[y][x] != '1')
-				render_rect(data, &data->game, data->mini_map.tile);
-			else
-				render_wall(data, &data->map, x, y);
-			x ++;
+			printf("x = %d, y = %d\n", data->mini_map.x, data->mini_map.y);
+			printf("x_max = %d, y_max = %d\n", data->mini_map.x_max, data->mini_map.y_max);
+			printf("player_x = %d, player_y = %d\n", data->mini_map.player.x, data->mini_map.player.y);
+			data->mini_map.tile.x = data->mini_map.x;
+			data->mini_map.tile.y = data->mini_map.y;
+			data->mini_map.wall.x = data->mini_map.x;
+			data->mini_map.wall.y = data->mini_map.y;
+			// NW of the map
+			if (data->mini_map.y < (data->mini_map.player.y / MM_CELL_SIZE) &&
+				data->mini_map.x < (data->mini_map.player.x / MM_CELL_SIZE))
+			{
+				int	y_to_check;
+				int	x_to_check;
+
+				y_to_check = (data->player.y / CELL_SIZE) - data->mini_map.y;
+				x_to_check = (data->player.x / CELL_SIZE) - data->mini_map.x;
+
+				if (y_to_check <= 0)
+					y_to_check = 0;
+				else if (y_to_check > data->mini_map.y_max)
+					y_to_check = data->mini_map.y_max;
+				if (x_to_check <= 0)
+					x_to_check = 0;
+				else if (x_to_check > data->mini_map.x_max)
+					x_to_check = data->mini_map.x_max;
+
+				printf("NW :: y_to_check = %d, x_to_check = %d\n", y_to_check, x_to_check);
+				if (data->map.tab[y_to_check][x_to_check] != '1')
+					render_rect(data, &data->game, data->mini_map.tile);
+				else
+					render_rect(data, &data->game, data->mini_map.wall);
+			}
+			// NE of the map
+			else if (data->mini_map.y < (data->mini_map.player.y / MM_CELL_SIZE) &&
+				data->mini_map.x > (data->mini_map.player.x / MM_CELL_SIZE))
+			{
+				int	y_to_check;
+				int	x_to_check;
+
+				y_to_check = (data->player.y / CELL_SIZE) - data->mini_map.y;
+				x_to_check = (data->player.x / CELL_SIZE) + data->mini_map.x;
+
+				if (y_to_check <= 0)
+					y_to_check = 0;
+				else if (y_to_check > data->mini_map.y_max)
+					y_to_check = data->mini_map.y_max;
+				if (x_to_check <= 0)
+					x_to_check = 0;
+				else if (x_to_check > data->mini_map.x_max)
+					x_to_check = data->mini_map.x_max;
+
+				printf("NE :: y_to_check = %d, x_to_check = %d\n", y_to_check, x_to_check);
+				if (data->map.tab[y_to_check][x_to_check] != '1')
+					render_rect(data, &data->game, data->mini_map.tile);
+				else
+					render_rect(data, &data->game, data->mini_map.wall);
+			}
+			// SE of the map
+			else if (data->mini_map.y > (data->mini_map.player.y / MM_CELL_SIZE) &&
+				data->mini_map.x > (data->mini_map.player.x / MM_CELL_SIZE))
+			{
+				int	y_to_check;
+				int	x_to_check;
+
+				y_to_check = (data->player.y / CELL_SIZE) + data->mini_map.y;
+				x_to_check = (data->player.x / CELL_SIZE) + data->mini_map.x;
+
+				if (y_to_check <= 0)
+					y_to_check = 0;
+				else if (y_to_check > data->mini_map.y_max)
+					y_to_check = data->mini_map.y_max;
+				if (x_to_check <= 0)
+					x_to_check = 0;
+				else if (x_to_check > data->mini_map.x_max)
+					x_to_check = data->mini_map.x_max;
+
+				printf("SE :: y_to_check = %d, x_to_check = %d\n", y_to_check, x_to_check);
+				if (data->map.tab[y_to_check][x_to_check] != '1')
+					render_rect(data, &data->game, data->mini_map.tile);
+				else
+					render_rect(data, &data->game, data->mini_map.wall);
+			}
+			// SW of the map
+			else if(data->mini_map.y > (data->mini_map.player.y / MM_CELL_SIZE) &&
+				data->mini_map.x < (data->mini_map.player.x / MM_CELL_SIZE))
+			{
+				int	y_to_check;
+				int	x_to_check;
+
+				y_to_check = (data->player.y / CELL_SIZE) + data->mini_map.y;
+				x_to_check = (data->player.x / CELL_SIZE) - data->mini_map.x;
+
+				if (y_to_check <= 0)
+					y_to_check = 0;
+				else if (y_to_check > data->mini_map.y_max)
+					y_to_check = data->mini_map.y_max;
+				if (x_to_check <= 0)
+					x_to_check = 0;
+				else if (x_to_check > data->mini_map.x_max)
+					x_to_check = data->mini_map.x_max;
+
+				printf("SW :: y_to_check = %d, x_to_check = %d\n", y_to_check, x_to_check);
+				if (data->map.tab[y_to_check][x_to_check] != '1')
+					render_rect(data, &data->game, data->mini_map.tile);
+				else
+					render_rect(data, &data->game, data->mini_map.wall);
+			}
+			data->mini_map.x ++;
 		}
-		y ++;
+		data->mini_map.y ++;
 	}
 	render_rect(data, &data->game, data->mini_map.player);
 }
 
-static void	render_wall(t_data *data, t_map *map, int x, int y)
+static void	set_player_param(t_mini_map *mini_map)
 {
-	data->mini_map.wall.x = (x * MM_CELL_SIZE) + 10;
-	data->mini_map.wall.y = (y * MM_CELL_SIZE) + 10;
-	if (x > 0 && map->tab[y][x - 1] != '1')
-		render_rect(data, &data->game, data->mini_map.wall);
-	if (x < (int)ft_strlen(map->tab[y]) && map->tab[y][x + 1] != '1')
-		if (map->tab[y][x + 1] != '1' && map->tab[y][x + 1] != 0)
-			render_rect(data, &data->game, data->mini_map.wall);
-	if (y > 0 && (int)ft_strlen(map->tab[y - 1]) >= (int)ft_strlen(map->tab[y]))
-		if (map->tab[y - 1][x] != '1')
-			render_rect(data, &data->game, data->mini_map.wall);
-	if (y < map->hgt && (int)ft_strlen(map->tab[y + 1]) >= x + 1)
-		if (map->tab[y + 1][x] != '1')
-			render_rect(data, &data->game, data->mini_map.wall);
-}
-
-static void	get_player_config(t_player *player, t_mini_map *mini_map)
-{
-	mini_map->player.x = ((player->x / CELL_SIZE) * MM_CELL_SIZE) + 10;
-	mini_map->player.y = ((player->y / CELL_SIZE) * MM_CELL_SIZE) + 10;
+	mini_map->player.x = MM_WDTH / 2;
+	mini_map->player.y = MM_HGT / 2;
 	mini_map->player.wdth = MM_CELL_SIZE;
 	mini_map->player.hgt = MM_CELL_SIZE;
 	mini_map->player.color = RED;
 }
 
-static void	set_tile_and_walls_specs(t_mini_map *mini_map)
+static void	set_tile_and_walls_param(t_mini_map *mini_map)
 {
 	mini_map->tile.wdth = MM_CELL_SIZE;
 	mini_map->tile.hgt = MM_CELL_SIZE;
@@ -136,24 +158,4 @@ static void	set_tile_and_walls_specs(t_mini_map *mini_map)
 	mini_map->wall.wdth = MM_CELL_SIZE;
 	mini_map->wall.hgt = MM_CELL_SIZE;
 	mini_map->wall.color = BLACK;
-}
-
-static void	cam_init(t_map *map, t_player *player, t_mini_map *mini_map)
-{
-	(void)map;
-	mini_map->cam.y = ((player->y / CELL_SIZE) * MM_CELL_SIZE) + 10 - (5 * MM_CELL_SIZE);
-	mini_map->cam.x = ((player->x / CELL_SIZE) * MM_CELL_SIZE) + 10 - (5 * MM_CELL_SIZE);
-
-	// printf("player_x = %f\n", ((player->x / CELL_SIZE) * MM_CELL_SIZE) + 10);
-	// printf("player_y = %f\n", ((player->y / CELL_SIZE) * MM_CELL_SIZE) + 10);
-	if (mini_map->cam.y < 0)
-		mini_map->cam.y = 0;
-	if (mini_map->cam.x < 0)
-		mini_map->cam.x = 0;
-	if (mini_map->cam.y + MM_HGT > MM_HGT)
-		mini_map->cam.y = 0;
-	if (mini_map->cam.x + MM_WDTH > MM_WDTH)
-		mini_map->cam.x = 0;
-	// printf("cam_x = %f\n", ((player->x / CELL_SIZE) * MM_CELL_SIZE) + 10 - (5 * MM_CELL_SIZE));
-	// printf("cam_y = %f\n", ((player->y / CELL_SIZE) * MM_CELL_SIZE) + 10 - (5 * MM_CELL_SIZE));
 }
