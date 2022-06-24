@@ -48,8 +48,6 @@ void	render_manager(t_data *data, t_win *win);
 
 /*	render_manager/render_mini_map.c										  */
 void	render_mini_map(t_data *data);
-void	render_background(t_data *data);
-void	render_walls_and_tiles(t_data *data, int x, int y);
 
 /*	render_manager/utils_render.c											  */
 int		render_rect(t_data *data, t_img *render, t_rect rect);
