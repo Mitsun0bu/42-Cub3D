@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/24 15:55:27 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 11:46:41 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ enum e_dimensions {
 	WIN_WDTH = 1720,
 	WIN_HGT = 960,
 	CELL_SIZE = 64,
-	MM_WDTH = 400,
-	MM_HGT = 200,
+	MM_WDTH = 410,
+	MM_HGT = 210,
 	MM_CELL_SIZE = 10
 };
 
@@ -218,10 +218,6 @@ typedef struct s_cam
 {
 	double	x;
 	double	y;
-
-
-
-
 }	t_cam;
 
 typedef struct s_mini_map
@@ -230,9 +226,7 @@ typedef struct s_mini_map
 	int			y;
 	int			x_max;
 	int			y_max;
-	t_rect		tile;
-	t_rect		wall;
-	t_rect		player;
+	t_rect		square;
 	t_img		img;
 }	t_mini_map;
 
