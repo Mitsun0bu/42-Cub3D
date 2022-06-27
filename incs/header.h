@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:22:50 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/27 15:32:35 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 15:57:06 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ enum e_key {
 enum e_color {
 	BLACK = 0x000000,
 	WHITE = 0xFFFFFF,
-	GREY = 0xE0E0E0,
+	GREY = 0x0994C,
 	RED = 0xFF0000,
-	PINK = 0xFF99FF,
-	YELLOW = 0xFFFF66
+	PINK = 0xCC99FF,
+	YELLOW = 0xFFFF66,
+	ORANGE = 0xFF8000
 };
 
 enum e_orientation {
@@ -110,8 +111,8 @@ enum e_grid {
 };
 
 enum e_dimensions {
-	WIN_WDTH = 1720,
-	WIN_HGT = 960,
+	WIN_WDTH = 1600,
+	WIN_HGT = 900,
 	CELL_SIZE = 64,
 	MM_WDTH = 410,
 	MM_HGT = 210,
@@ -227,6 +228,7 @@ typedef struct s_mini_map
 	int			x_max;
 	int			y_max;
 	t_rect		square;
+	t_rect		background;
 	t_rect		player;
 	t_img		img;
 }	t_mini_map;

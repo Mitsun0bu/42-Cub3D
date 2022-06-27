@@ -6,17 +6,18 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 18:13:45 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/23 11:37:40 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 17:18:49 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	render_rect(t_data *data, t_img *render, t_rect rect)
+int	render_rect(t_data *data, t_img *render, t_rect rect, int color)
 {
 	int	i;
 	int	j;
 
+	rect.color = color;
 	if (data->win.edge == NULL)
 		return (1);
 	i = rect.y;

@@ -6,75 +6,69 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 12:35:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/27 15:34:42 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 17:43:03 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-static void render_mini_map_nw(t_data *data);
+static void	init_mini_map_y(t_map *map, t_player *player, t_mini_map *mini_map);
+static void	init_mini_map_x(t_map *map, t_player *player, t_mini_map *mini_map);
 
-void	render_mini_map(t_data *data)
+void	render_mini_map(t_data *d, t_map *m, t_player *p, t_mini_map *mm)
 {
-	data->mini_map.square.wdth = MM_CELL_SIZE;
-	data->mini_map.square.hgt = MM_CELL_SIZE;
-	render_mini_map_nw(data);
+	d->mini_map.square.wdth = MM_CELL_SIZE;
+	d->mini_map.square.hgt = MM_CELL_SIZE;
+	init_mini_map_y(&d->map, &d->player, &d->mini_map);
+	while (mm->y < (int)floor(p->y / CELL_SIZE) + mm->y_max
+		&& mm->y < m->hgt)
+	{
+		init_mini_map_x(&d->map, &d->player, &d->mini_map);
+		while (mm->x < (int)floor(p->x / CELL_SIZE) + mm->x_max
+			&& mm->x < (int)ft_strlen(m->tab[mm->y]))
+		{
+			if (d->map.tab[mm->y][mm->x] != '1')
+				render_rect(d, &d->game, mm->square, WHITE);
+			else
+				render_rect(d, &d->game, mm->square, BLACK);
+			if (mm->y == (int)floor(p->y / CELL_SIZE)
+				&& mm->x == (int)floor(p->x / CELL_SIZE))
+				render_rect(d, &d->game, mm->square, RED);
+			mm->x ++;
+			mm->square.x += 10;
+		}
+		mm->y ++;
+		mm->square.y += 10;
+	}
 }
 
-static void render_mini_map_nw(t_data *data)
+static void	init_mini_map_y(t_map *map, t_player *player, t_mini_map *mini_map)
 {
-	int	x;
-	int	y;
-	int	limit_x;
-	int	limit_y;
-
-	data->mini_map.square.y = 10;
-	limit_y = 10;
-	y = (int)floor(data->player.y / CELL_SIZE) - limit_y;
-	if ((int)floor(data->player.y / CELL_SIZE) + limit_y > data->map.hgt)
-		y -= (int)floor(data->player.y / CELL_SIZE) + limit_y - data->map.hgt;
-	if (y < 0)
+	mini_map->square.y = 10;
+	mini_map->y_max = 10;
+	mini_map->y = (int)floor(player->y / CELL_SIZE) - mini_map->y_max;
+	if ((int)floor(player->y / CELL_SIZE) + mini_map->y_max > map->hgt)
+		mini_map->y -= (int)floor(player->y / CELL_SIZE)
+			+ mini_map->y_max - map->hgt;
+	if (mini_map->y < 0)
 	{
-		limit_y += -y;
-		y = 0;
+		mini_map->y_max -= mini_map->y;
+		mini_map->y = 0;
 	}
-	while (y < (int)floor(data->player.y / CELL_SIZE) + limit_y && y < data->map.hgt)
+}
+
+static void	init_mini_map_x(t_map *map, t_player *player, t_mini_map *mini_map)
+{
+	mini_map->square.x = 10;
+	mini_map->x_max = 20;
+	mini_map->x = (int)floor(player->x / CELL_SIZE) - mini_map->x_max;
+	if ((int)floor(player->x / CELL_SIZE) + mini_map->x_max
+		> (int)ft_strlen(map->tab[mini_map->y]))
+		mini_map->x -= (int)floor(player->x / CELL_SIZE)
+			+ mini_map->x_max - (int)ft_strlen(map->tab[mini_map->y]);
+	if (mini_map->x < 0)
 	{
-		data->mini_map.square.x = 10;
-		limit_x = 20;
-		x = (int)floor(data->player.x / CELL_SIZE) - limit_x;
-		if ((int)floor(data->player.x / CELL_SIZE) + limit_x > (int)ft_strlen(data->map.tab[y]))
-			x -= (int)floor(data->player.x / CELL_SIZE) + limit_x - (int)ft_strlen(data->map.tab[y]);
-		if (x < 0)
-		{
-			limit_x += -x;
-			x = 0;
-		}
-		while (x < (int)floor(data->player.x / CELL_SIZE) + limit_x && x < (int)ft_strlen(data->map.tab[y]))
-		{
-			if (data->map.tab[y][x] != '1')
-			{
-				data->mini_map.square.color = WHITE;
-				render_rect(data, &data->game, data->mini_map.square);
-			}
-			else
-			{
-				data->mini_map.square.color = PINK;
-				render_rect(data, &data->game, data->mini_map.square);
-			}
-				if (y == (int)floor(data->player.y / CELL_SIZE) && x == (int)floor(data->player.x / CELL_SIZE))
-			{
-				// data->mini_map.player.x = data->player.x / CELL_SIZE * MM_CELL_SIZE;
-				// data->mini_map.player.y = data->player.y / CELL_SIZE * MM_CELL_SIZE;
-				// data->mini_map.player.wdth = 10;
-				// data->mini_map.player.hgt = 10;
-				data->mini_map.square.color = RED;
-				render_rect(data, &data->game, data->mini_map.square);
-			}
-			x ++;
-			data->mini_map.square.x += 10;
-		}
-		y ++;
-		data->mini_map.square.y += 10;
+		mini_map->x_max -= mini_map->x;
+		mini_map->x = 0;
 	}
 }

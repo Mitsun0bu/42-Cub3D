@@ -47,10 +47,10 @@ void	render_game(t_data *data, t_player *player, t_ray *ray_tab);
 void	render_manager(t_data *data, t_win *win);
 
 /*	render_manager/render_mini_map.c										  */
-void	render_mini_map(t_data *data);
+void	render_mini_map(t_data *d, t_map *m, t_player *p, t_mini_map *mm);
 
 /*	render_manager/utils_render.c											  */
-int		render_rect(t_data *data, t_img *render, t_rect rect);
+int		render_rect(t_data *data, t_img *render, t_rect rect, int color);
 int		render_line(t_data *data, t_img *render, t_line line);
 int		get_pixel_color_from_texture(t_tex *texture, t_coord *coord);
 

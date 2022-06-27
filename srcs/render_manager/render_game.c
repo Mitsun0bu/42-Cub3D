@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:22:44 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/24 15:36:09 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/27 17:19:58 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ static void	render_ceiling(t_data *data, int i, double wall_base)
 	ceiling.y = 0;
 	ceiling.wdth = 1;
 	ceiling.hgt = wall_base;
-	ceiling.color = data->config.ceiling_hex_code;
 	if (ceiling.hgt >= 0 && ceiling.hgt <= WIN_HGT)
-		render_rect(data, &data->game, ceiling);
+		render_rect(data, &data->game, ceiling, data->config.ceiling_hex_code);
 }
 
 static void	render_floor(t_data *data, int i, double wall_base)
@@ -57,9 +56,8 @@ static void	render_floor(t_data *data, int i, double wall_base)
 	floor.y = wall_base + 1;
 	floor.wdth = 1;
 	floor.hgt = WIN_HGT - wall_base;
-	floor.color = data->config.floor_hex_code;
 	if (floor.hgt >= 0 && floor.hgt <= WIN_HGT)
-		render_rect(data, &data->game, floor);
+		render_rect(data, &data->game, floor, data->config.floor_hex_code);
 }
 
 static void	render_wall(t_data *data, double wall_base, double wall_hgt, int i)
