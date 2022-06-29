@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:34:08 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/22 09:45:11 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 10:45:02 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	get_map(t_map *map, int fd)
 
 	map_first_line = get_first_line_of_map(map, fd);
 	map_rest = get_rest_of_map(map, fd);
-	map_unidim = ft_strjoin(map_first_line, map_rest);
+	if (!map_rest)
+		map_unidim = map_first_line;
+	else
+		map_unidim = ft_strjoin(map_first_line, map_rest);
 	free(map_rest);
 	map->tab = ft_split(map_unidim, '\n');
 	free(map_unidim);

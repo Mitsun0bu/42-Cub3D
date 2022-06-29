@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:26:49 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:26:52 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 10:52:27 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 static char	*ft_get_line(int fd, char *line, char *buff);
 static int	ft_find_nl_index(char *s);
 static char	*ft_gnl_join(char *line, char *buff);
-static void ft_fill_joined(char *line, char *buff, char *joined);
+static void	ft_fill_joined(char *line, char *buff, char *joined);
 
 char	*ft_get_next_line(int fd)
 {
-	char		*line = NULL;
+	char		*line;
 	static char	buff[BUFFER_SIZE + 1] = {};
 
+	line = NULL;
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = malloc(sizeof(char) * 1);
@@ -37,9 +38,10 @@ char	*ft_get_next_line(int fd)
 
 static char	*ft_get_line(int fd, char *line, char *buff)
 {
-	char	*buff_rest = NULL;
-	int		read_ret = 1;
+	char	*buff_rest;
+	int		read_ret;
 
+	read_ret = 1;
 	while (read_ret > 0)
 	{
 		line = ft_gnl_join(line, buff);
@@ -55,10 +57,9 @@ static char	*ft_get_line(int fd, char *line, char *buff)
 		}
 		read_ret = read(fd, buff, BUFFER_SIZE);
 		if (read_ret == -1)
-		{
 			free(line);
+		if (read_ret == -1)
 			return (NULL);
-		}
 		buff[read_ret] = '\0';
 	}
 	return (line);
@@ -66,8 +67,9 @@ static char	*ft_get_line(int fd, char *line, char *buff)
 
 static int	ft_find_nl_index(char *s)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!s)
 		return (NO_NL);
 	while (s[i])
@@ -81,9 +83,11 @@ static int	ft_find_nl_index(char *s)
 
 static char	*ft_gnl_join(char *line, char *buff)
 {
-	char	*joined = NULL;
-	int		buff_size = 0;
+	char	*joined;
+	int		buff_size;
 
+	joined = NULL;
+	buff_size = 0;
 	if (ft_find_nl_index(buff) == NO_NL)
 		buff_size = ft_strlen(buff);
 	else
@@ -96,7 +100,7 @@ static char	*ft_gnl_join(char *line, char *buff)
 	return (joined);
 }
 
-static void ft_fill_joined(char *line, char *buff, char *joined)
+static void	ft_fill_joined(char *line, char *buff, char *joined)
 {
 	int	i_l;
 	int	i_b;

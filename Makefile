@@ -6,7 +6,7 @@
 #    By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 17:19:42 by llethuil          #+#    #+#              #
-#    Updated: 2022/06/24 11:13:20 by llethuil         ###   ########lyon.fr    #
+#    Updated: 2022/06/29 10:58:27 by llethuil         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,11 @@ INCS_LST	:=	config_parser.h								\
 				main.h										\
 				render_manager.h							\
 				utils.h										\
+				../mlx/mlx_int.h							\
+				../mlx/mlx_new_window.h						\
+				../mlx/mlx_opengl.h							\
+				../mlx/mlx_png.h							\
+				../mlx/mlx.h								\
 
 SRCS_LST	:=	config_parser/check_map.c					\
 				config_parser/check_textures.c				\

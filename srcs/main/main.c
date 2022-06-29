@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:32:40 by llethuil          #+#    #+#             */
-/*   Updated: 2022/06/23 15:12:07 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 11:02:24 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	main(int ac, char **av)
 	render_manager(&data, &data.win);
 	mlx_hook(data.win.edge, 2, 0, key_press, &data);
 	mlx_loop(data.win.mlx);
-	exit (0);
+	exit(0);
 }

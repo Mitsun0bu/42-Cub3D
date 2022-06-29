@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 17:27:34 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/30 17:28:39 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/06/29 10:49:09 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-#ifndef NO_NL
-# define NO_NL -1
-#endif
+# ifndef NO_NL
+#  define NO_NL -1
+# endif
 
 /* ************************************************************************** */
 /*                                                                            */
